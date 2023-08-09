@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity"
+    tools:ignore="InvalidId">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="225dp"
+            android:orientation="vertical"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:layout_width="125dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/sunchun"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="순천향대학교"
+                android:textColor="#4E3A3A"
+                android:textSize="40sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="순천향대학교 통학버스"
+                android:textColor="#2035AE"
+                android:textSize="25sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/idText"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:background="@color/colorPrimary"
+                android:drawableStart="@drawable/ic_baseline_person_24"
+                android:drawableLeft="@drawable/ic_baseline_person_24"
+                android:hint="학번"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textColor="#FFFFFF"/>
+
+            <EditText
+                android:id="@+id/passwordText"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorPrimary"
+                android:drawableStart="@drawable/ic_baseline_lock_24"
+                android:drawableLeft="@drawable/ic_baseline_lock_24"
+                android:hint="비밀번호"
+                android:inputType="textPassword"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textColor="#FFFFFF"/>
+
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="로그인"
+                android:textColor="#6D4C41"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/registerButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="회원가입"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/emergencyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="   차량운행관련 긴급연락 :  070-4252-6500"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginTop="80dp"/>
+
+            <TextView
+                android:id="@+id/emergencyText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#BA0000"
+                android:layout_marginTop="20dp"
+                android:text="※ 2016년 1월 이전가입자는 비밀번호가 핸드폰번호이며, 2016년 2월 이후가입자는 비밀번호가 핸드폰번호 뒷자리 4자리입니다." />
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
