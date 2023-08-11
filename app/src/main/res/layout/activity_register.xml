@@ -79,21 +79,8 @@
                 android:padding="10dp"
                 android:textColor="#FFFFFF"/>
 
-
-            <Button
-                android:layout_width="280dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorPrimaryDark"
-                android:text="로그인"
-                android:textColor="#6D4C41"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-
             <TextView
-                android:id="@+id/registerButton"
+                android:id="@+id/registerButton2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="buss">
+        <item>교대</item>
+        <item>안산</item>
+        <item>인천</item>
+        <item>송내</item>
+    </string-array>
+    <string-array name="morningtime">
+        <item>06:50</item>
+        <item>08:00</item>
+        <item>07:00</item>
+        <item>06:30</item>
+        <item>06:40</item>
+    </string-array>
+    <string-array name="dinnertime">
+        <item>15:20</item>
+        <item>19:00(금 18:30)</item>
+        <item>19:00(금 18:30)</item>
+        <item>18:00</item>
+        <item>19:00(금 18:30)</item>
+    </string-array>
+</resources>
