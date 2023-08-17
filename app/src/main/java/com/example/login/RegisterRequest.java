@@ -8,9 +8,8 @@ import java.util.Map;
 
 public class RegisterRequest extends StringRequest {
 
-    final static private String URL = "http://localhost:8080/signup/UserRegister.php";
+    final static private String URL = "http://localhost:8080/signup";
     private Map<String, String> parameters;
-
     public RegisterRequest(String userId,String userPw, String userName, Response.Listener<String> listener){
         super(Method.POST, URL, listener, null);
         parameters = new HashMap<>();

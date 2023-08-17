@@ -109,13 +109,6 @@
                 android:textSize="20dp"
                 android:layout_marginTop="80dp"/>
 
-            <TextView
-                android:id="@+id/emergencyText2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#BA0000"
-                android:layout_marginTop="20dp"
-                android:text="※ 2016년 1월 이전가입자는 비밀번호가 핸드폰번호이며, 2016년 2월 이후가입자는 비밀번호가 핸드폰번호 뒷자리 4자리입니다." />
 
         </LinearLayout>
     </LinearLayout>
