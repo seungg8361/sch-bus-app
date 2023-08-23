@@ -79,7 +79,7 @@
                 android:padding="10dp"
                 android:textColor="#FFFFFF"/>
 
-            <TextView
+            <Button
                 android:id="@+id/registerButton2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
