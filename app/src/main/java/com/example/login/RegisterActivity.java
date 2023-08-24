@@ -47,7 +47,7 @@ public class RegisterActivity extends Activity {
         });
     }
 
-    private class RegisterTask extends AsyncTask<String, Void, String> {
+    private class RegisterTask extends AsyncTask<String, String, String> {
 
         @Override
         protected String doInBackground(String... params) {
