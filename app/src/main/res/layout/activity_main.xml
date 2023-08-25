@@ -50,37 +50,4 @@
         android:text="노선별 승차장소" />
 
 
-    <Button
-        android:id="@+id/chargeButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="#ffffff"
-        android:textStyle="bold"
-        android:drawableStart="@drawable/ic_baseline_attach_money_24"
-        android:drawableLeft="@drawable/ic_baseline_attach_money_24"
-        android:text="온라인 충전" />
-
-    <Button
-        android:id="@+id/useButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:textStyle="bold"
-        android:drawableStart="@drawable/ic_baseline_discount_24"
-        android:drawableLeft="@drawable/ic_baseline_discount_24"
-        android:layout_marginTop="20dp"
-        android:text="사용내역" />
-
-    <Button
-        android:id="@+id/logoutButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:drawableLeft="@drawable/ic_baseline_cancel_24"
-        android:drawableStart="@drawable/ic_baseline_cancel_24"
-        android:layout_marginTop="20dp"
-        android:textStyle="bold"
-        android:text="로그아웃" />
-
 </LinearLayout>
