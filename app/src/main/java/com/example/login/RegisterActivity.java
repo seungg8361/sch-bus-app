@@ -38,11 +38,11 @@ public class RegisterActivity extends Activity {
             public void onClick(View v) {
                 // 사용자가 입력한 회원가입 정보 가져오기
                 String userId = userIdEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
-                String name = nameEditText.getText().toString();
+                String userPwd = passwordEditText.getText().toString();
+                String userName = nameEditText.getText().toString();
 
                 // 회원가입 작업 실행
-                new RegisterTask().execute(userId, password, name);
+                new RegisterTask().execute(userId, userPwd, userName);
             }
         });
     }

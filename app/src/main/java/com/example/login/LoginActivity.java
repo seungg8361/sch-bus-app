@@ -130,7 +130,7 @@ public class LoginActivity extends Activity {
                     Toast.makeText(LoginActivity.this, "로그인 성공!", Toast.LENGTH_SHORT).show();
                     // 로그인 성공한 후의 처리 로직 작성
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("user_name",userIdEditText.getText().toString());
+                    intent.putExtra("userName",userIdEditText.getText().toString());
                     startActivity(intent);
                     finish();
 
