@@ -16,15 +16,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Login"
+        android:theme="@style/AppTheme.NoActionBar"
         tools:targetApi="31"
         android:usesCleartextTraffic="true">
 
-        <activity
-            android:name=".SongnaeActivity"
-            android:label="Songnae">
-
-        </activity>
         <activity
             android:name=".louteActivity"
             android:label="loute">
