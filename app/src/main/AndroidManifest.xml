@@ -20,9 +20,22 @@
         tools:targetApi="31"
         android:usesCleartextTraffic="true">
 
+
+        <activity
+            android:name=".BustimeActivity"
+            android:label="Bustime">
+
+        </activity>
+
         <activity
             android:name=".louteActivity"
             android:label="loute">
+
+        </activity>
+
+        <activity
+            android:name=".louteActivityy"
+            android:label="loutey">
 
         </activity>
         <activity

@@ -51,7 +51,7 @@ public class RegisterActivity extends Activity {
 
         @Override
         protected String doInBackground(String... params) {
-            String urlString = "http://10.114.10.12:8080/signup_app"; // 회원가입 API URL
+            String urlString = "http://10.114.10.18:8080/signup_app"; // 회원가입 API URL
             String userId = params[0];
             String password = params[1];
             String name = params[2];

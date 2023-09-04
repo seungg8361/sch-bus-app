@@ -5,33 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
-
-    <Spinner
-        android:id="@+id/busSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:minHeight="48dp" />
-
-    <Spinner
-        android:id="@+id/dayOfWeekSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:minHeight="48dp" />
-
-    <Spinner
-        android:id="@+id/timePicker"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:minHeight="48dp" />
-
     <!-- 좌석 선택 -->
     <GridView
         android:id="@+id/seatGridView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="438dp"
         android:layout_marginTop="16dp"
         android:numColumns="4">
     </GridView>

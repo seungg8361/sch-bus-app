@@ -58,7 +58,7 @@ public class LoginActivity extends Activity {
 
         @Override
         protected String doInBackground(String... params) {
-            String urlString = "http://10.114.10.12:8080/login_app"; // 로그인 API URL
+            String urlString = "http://10.114.10.18:8080/login_app"; // 로그인 API URL
             String userId = params[0];
             String password = params[1];
             String result = "";
