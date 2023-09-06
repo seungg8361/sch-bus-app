@@ -24,8 +24,6 @@ public class bus extends Activity{
     private Button incheon;
     private Button songnae;
 
-    String selectBus="";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,34 +37,38 @@ public class bus extends Activity{
         gyodae1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String selectBus = "gyodae1";
+                String SelectGyodae1 = "gyodae1";
+                new BusSelectionTask().execute(SelectGyodae1);
             }
         });
         gyodae2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String selectBus = gyodae2.getText().toString();
+                String SelectGyodae2 = gyodae2.getText().toString();
+                new BusSelectionTask().execute(SelectGyodae2);
             }
         });
         ansan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String selectBus = ansan.getText().toString();
+                String SelectAnsan = ansan.getText().toString();
+                new BusSelectionTask().execute(SelectAnsan);
             }
         });
         incheon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String selectBus = incheon.getText().toString();
+                String SelectIncheon = incheon.getText().toString();
+                new BusSelectionTask().execute(SelectIncheon);
             }
         });
         songnae.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String selectBus = songnae.getText().toString();
+                String SelectSongnae = songnae.getText().toString();
+                new BusSelectionTask().execute(SelectSongnae);
             }
         });
-        new BusSelectionTask().execute(selectBus);
     }
     private class BusSelectionTask extends AsyncTask<String, Void, String >{
         @Override
@@ -135,7 +137,7 @@ public class bus extends Activity{
             Toast.makeText(bus.this, result, Toast.LENGTH_SHORT).show();
             // 후속 처리 로직 작성
             Intent intent = new Intent(bus.this, date.class);
-            intent.putExtra("bus", selectBus);
+            intent.putExtra("bus" , gyodae1.getText().toString());
             startActivity(intent);
             finish();
         }
