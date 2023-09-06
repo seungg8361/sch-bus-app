@@ -22,15 +22,13 @@
 
 
         <activity
-            android:name=".BustimeActivity"
-            android:label="Bustime">
-
+            android:name=".date"
+            android:label="date">
         </activity>
 
         <activity
-            android:name=".louteActivity"
-            android:label="loute">
-
+            android:name=".BustimeActivity"
+            android:label="Bustime">
         </activity>
 
         <activity
@@ -38,16 +36,24 @@
             android:label="loutey">
 
         </activity>
+
         <activity
             android:name=".MainActivity"
             android:label="Main">
-
         </activity>
+
         <activity
             android:name=".RegisterActivity"
             android:label="Register">
-
         </activity>
+
+
+        <activity
+            android:name=".bus"
+            android:label="bus">
+        </activity>
+
+
         <activity
             android:name=".LoginActivity"
             android:exported="true">

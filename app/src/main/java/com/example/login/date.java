@@ -1,14 +1,19 @@
 package com.example.login;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
@@ -16,51 +21,48 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
-
-public class LoginActivity extends Activity {
-
-    private EditText userIdEditText;
-    private EditText passwordEditText;
-    private Button loginButton;
+public class date extends Activity {
+    String[] items = {"날짜 선택","2023-09-18", "2023-09-19", "2023-09-20", "2023-09-21", "2023-09-22"};
+    Button seatButtons[];
+    private String selectBus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_date_seat);
+        final TextView textView = findViewById(R.id.textView);
+        Spinner spinner = findViewById((R.id.spinner));
+        selectBus = getIntent().getStringExtra("bus");
 
-        userIdEditText = findViewById(R.id.idText);
-        passwordEditText = findViewById(R.id.passwordText);
-        loginButton = findViewById(R.id.loginButton);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, items
+        );
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                // 사용자가 입력한 아이디와 비밀번호 가져오기
-                String userId = userIdEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
-
-                // 로그인 작업 실행
-                new LoginTask().execute(userId, password);
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position>0){
+                    new DateSelectionTask().execute(items[position]);
+                }
             }
-        });
-        Button registerButton = findViewById(R.id.registerButton);
-        registerButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View view) {
-                Intent registerintent = new Intent(LoginActivity.this, RegisterActivity.class);
-                LoginActivity.this.startActivity(registerintent);
+            public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
     }
 
-    private class LoginTask extends AsyncTask<String, Void, String> {
-
+    private class DateSelectionTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-            String urlString = "http://10.114.10.15:8080/login_app"; // 로그인 API URL
-            String userId = params[0];
-            String password = params[1];
+            String urlString = "http://10.114.10.15:8080/select_date";
+            String selectBus = params[0];
+            String date = params[1];
             String result = "";
 
             try {
@@ -73,10 +75,10 @@ public class LoginActivity extends Activity {
 
                 // 회원가입 정보를 JSON 형태로 변환
                 JSONObject jsonParams = new JSONObject();
-                jsonParams.put("user_id", userId);
-                jsonParams.put("password", password);
 
-                // JSON 데이터를 요청의 body에 넣기
+                jsonParams.put("bus", selectBus);
+                jsonParams.put("date", date);
+
                 DataOutputStream os = new DataOutputStream(conn.getOutputStream());
                 os.writeBytes(jsonParams.toString());
                 os.flush();
@@ -121,27 +123,31 @@ public class LoginActivity extends Activity {
 
         @Override
         protected void onPostExecute(String result) {
+            Toast.makeText(date.this, "날짜가 선택되었습니다.", Toast.LENGTH_SHORT).show();
+            super.onPostExecute(result);
             try {
-                // 서버로부터 받은 응답 처리
+                JSONArray reservedSeats = new JSONArray(result);
 
-                boolean success = result.equals("Success");
-                if (success) {
-                    // 로그인 성공
-                    Toast.makeText(LoginActivity.this, "로그인 성공!", Toast.LENGTH_SHORT).show();
-                    // 로그인 성공한 후의 처리 로직 작성
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("userName",userIdEditText.getText().toString());
-                    startActivity(intent);
-                    finish();
-
-                } else {
-                    // 로그인 실패
-                    Toast.makeText(LoginActivity.this, "로그인 실패!", Toast.LENGTH_SHORT).show();
+                List<String> reservedSeatList = new ArrayList<>();
+                for (int i = 0; i < reservedSeats.length(); i++) {
+                    String seatNumber = reservedSeats.getString(i);
+                    reservedSeatList.add(seatNumber);
                 }
 
-            } catch (Exception e) {
+                for (String seatNumber : reservedSeatList) {
+                    int index = Integer.parseInt(seatNumber) - 1;
+
+                    if (index >= 0 && index < seatButtons.length) {
+                        Button seatButton = seatButtons[index];
+                        seatButton.setEnabled(false);
+                        seatButton.setBackgroundColor(Color.GRAY);
+                    }
+                }
+
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
+
 }

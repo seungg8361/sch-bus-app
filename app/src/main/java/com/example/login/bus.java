@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -17,50 +16,63 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+public class bus extends Activity{
 
-public class LoginActivity extends Activity {
+    private Button gyodae1;
+    private Button gyodae2;
+    private Button ansan;
+    private Button incheon;
+    private Button songnae;
 
-    private EditText userIdEditText;
-    private EditText passwordEditText;
-    private Button loginButton;
+    String selectBus="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_loute);
 
-        userIdEditText = findViewById(R.id.idText);
-        passwordEditText = findViewById(R.id.passwordText);
-        loginButton = findViewById(R.id.loginButton);
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 사용자가 입력한 아이디와 비밀번호 가져오기
-                String userId = userIdEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
-
-                // 로그인 작업 실행
-                new LoginTask().execute(userId, password);
-            }
-        });
-        Button registerButton = findViewById(R.id.registerButton);
-        registerButton.setOnClickListener(new View.OnClickListener() {
+        gyodae1 = findViewById(R.id.gyodae1);
+        gyodae2 = findViewById(R.id.gyodae2);
+        ansan = findViewById(R.id.ansan);
+        incheon = findViewById(R.id.incheon);
+        songnae = findViewById(R.id.songnae);
+        gyodae1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent registerintent = new Intent(LoginActivity.this, RegisterActivity.class);
-                LoginActivity.this.startActivity(registerintent);
+                String selectBus = "gyodae1";
             }
         });
+        gyodae2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String selectBus = gyodae2.getText().toString();
+            }
+        });
+        ansan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String selectBus = ansan.getText().toString();
+            }
+        });
+        incheon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String selectBus = incheon.getText().toString();
+            }
+        });
+        songnae.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String selectBus = songnae.getText().toString();
+            }
+        });
+        new BusSelectionTask().execute(selectBus);
     }
-
-    private class LoginTask extends AsyncTask<String, Void, String> {
-
+    private class BusSelectionTask extends AsyncTask<String, Void, String >{
         @Override
         protected String doInBackground(String... params) {
-            String urlString = "http://10.114.10.15:8080/login_app"; // 로그인 API URL
-            String userId = params[0];
-            String password = params[1];
+            String urlString = "http://10.114.10.15:8080/select_bus";
+            String busName = params[0];
             String result = "";
 
             try {
@@ -73,16 +85,15 @@ public class LoginActivity extends Activity {
 
                 // 회원가입 정보를 JSON 형태로 변환
                 JSONObject jsonParams = new JSONObject();
-                jsonParams.put("user_id", userId);
-                jsonParams.put("password", password);
+                jsonParams.put("bus", busName);
 
-                // JSON 데이터를 요청의 body에 넣기
                 DataOutputStream os = new DataOutputStream(conn.getOutputStream());
                 os.writeBytes(jsonParams.toString());
                 os.flush();
                 os.close();
 
                 if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    //Toast.makeText(bus.this, "성공이다", Toast.LENGTH_SHORT).show();
                     // 서버로부터 응답 데이터 읽기
                     InputStream inputStream = conn.getInputStream();
                     InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -96,6 +107,7 @@ public class LoginActivity extends Activity {
 
                     result = response.toString();
                 } else {
+                    //Toast.makeText(bus.this, "성공해라", Toast.LENGTH_SHORT).show();
                     // 서버로부터 응답 데이터 읽기
                     InputStream inputStream = conn.getInputStream();
                     InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -118,30 +130,14 @@ public class LoginActivity extends Activity {
 
             return result;
         }
-
         @Override
         protected void onPostExecute(String result) {
-            try {
-                // 서버로부터 받은 응답 처리
-
-                boolean success = result.equals("Success");
-                if (success) {
-                    // 로그인 성공
-                    Toast.makeText(LoginActivity.this, "로그인 성공!", Toast.LENGTH_SHORT).show();
-                    // 로그인 성공한 후의 처리 로직 작성
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("userName",userIdEditText.getText().toString());
-                    startActivity(intent);
-                    finish();
-
-                } else {
-                    // 로그인 실패
-                    Toast.makeText(LoginActivity.this, "로그인 실패!", Toast.LENGTH_SHORT).show();
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Toast.makeText(bus.this, result, Toast.LENGTH_SHORT).show();
+            // 후속 처리 로직 작성
+            Intent intent = new Intent(bus.this, date.class);
+            intent.putExtra("bus", selectBus);
+            startActivity(intent);
+            finish();
         }
     }
 }

@@ -20,14 +20,14 @@ public class BustimeActivity extends AppCompatActivity {
         morningButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(BustimeActivity.this, louteActivityy.class);
+                Intent intent = new Intent(BustimeActivity.this, bus.class);
                 startActivity(intent);
             }
         });
         dinnerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(BustimeActivity.this, louteActivity.class);
+                Intent intent = new Intent(BustimeActivity.this, bus.class);
                 startActivity(intent);
             }
         });

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="날짜 선택"
+        android:textSize="35dp"/>
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp" />
+
+    <!-- 좌석 예약 부분 -->
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="564dp"
+        android:layout_gravity="center"
+        android:columnCount="4"
+        android:gravity="center"
+        android:padding="16dp"
+        android:rowCount="10">
+
+        <!-- 40개의 좌석 버튼을 동적으로 생성할 것이므로 여기에는 아무 내용도 추가하지 않습니다. -->
+
+        <Button
+            android:id="@+id/a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="2"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/d"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="3"
+            android:text="Button" />
+    </GridLayout>
+
+    <!-- 예약 버튼 및 기타 UI 요소 추가 -->
+</LinearLayout>
