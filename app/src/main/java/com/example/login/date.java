@@ -1,10 +1,12 @@
 package com.example.login;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,11 +30,12 @@ public class date extends Activity {
     String[] items = {"날짜 선택","2023-09-18", "2023-09-19", "2023-09-20", "2023-09-21", "2023-09-22"};
     Button seatButtons[];
     private String selectBus;
+    private AdapterView<Adapter> spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_date_seat);
+        setContentView(R.layout.activity_date);
         final TextView textView = findViewById(R.id.textView);
         Spinner spinner = findViewById((R.id.spinner));
         selectBus = getIntent().getStringExtra("bus");
@@ -61,8 +64,8 @@ public class date extends Activity {
         @Override
         protected String doInBackground(String... params) {
             String urlString = "http://10.114.10.15:8080/select_date";
-            String selectBus = params[0];
-            String date = params[1];
+            String selectBus_test = "gyodae1";
+            String date = params[0];
             String result = "";
 
             try {
@@ -76,7 +79,7 @@ public class date extends Activity {
                 // 회원가입 정보를 JSON 형태로 변환
                 JSONObject jsonParams = new JSONObject();
 
-                jsonParams.put("bus", selectBus);
+                jsonParams.put("bus", selectBus_test);
                 jsonParams.put("date", date);
 
                 DataOutputStream os = new DataOutputStream(conn.getOutputStream());
@@ -124,6 +127,8 @@ public class date extends Activity {
         @Override
         protected void onPostExecute(String result) {
             Toast.makeText(date.this, "날짜가 선택되었습니다.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(date.this, LoginActivity.class);
+            startActivity(intent);
             super.onPostExecute(result);
             try {
                 JSONArray reservedSeats = new JSONArray(result);

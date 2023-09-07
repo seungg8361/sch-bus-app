@@ -24,7 +24,7 @@
         android:layout_marginTop="150dp"
         android:backgroundTint="#FFFFFF"
         android:drawableLeft="@drawable/ic_baseline_check_24"
-        android:text="버스예약"
+        android:text="버스 예매"
         android:textColor="#000000"
         android:textSize="18dp"
         android:textStyle="bold" />
@@ -56,5 +56,21 @@
             android:textStyle="bold"
             android:textSize="18dp"
             app:icon="@drawable/ic_baseline_directions_bus_24" />
+
+
+    <Button
+        android:id="@+id/reservaioncomplete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#FFFFFF"
+        android:drawableStart="@drawable/ic_baseline_directions_bus_24"
+        android:drawableLeft="@drawable/ic_baseline_directions_bus_24"
+        android:text="예매 확인"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        app:icon="@drawable/ic_baseline_directions_bus_24" />
+
 
 </LinearLayout>

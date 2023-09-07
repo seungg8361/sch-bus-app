@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -16,50 +14,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class seat extends Activity{
-
-    private Button a;
-    private Button b;
-    private Button c;
-    private Button d;
-
+public class SeatActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_date_seat);
+        setContentView(R.layout.activity_date);
 
-        a = findViewById(R.id.a);
-        b = findViewById(R.id.b);
-        c = findViewById(R.id.c);
-        d = findViewById(R.id.d);
-        a.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String seata = "a";
-                new SeatSelectionTask().execute(seata);
-            }
-        });
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String seatb = "b";
-                new SeatSelectionTask().execute(seatb);
-            }
-        });
-        c.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String seatc = "c";
-                new SeatSelectionTask().execute(seatc);
-            }
-        });
-        d.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String seatd = "d";
-                new SeatSelectionTask().execute(seatd);
-            }
-        });
+
+
+       // busa = findViewById(R.id.busa);
     }
     private class SeatSelectionTask extends AsyncTask<String, Void, String >{
         @Override
@@ -123,9 +86,9 @@ public class seat extends Activity{
         }
         @Override
         protected void onPostExecute(String result) {
-            Toast.makeText(seat.this, "좌석이 선택되었습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SeatActivity.this, "좌석이 선택되었습니다.", Toast.LENGTH_SHORT).show();
             // 후속 처리 로직 작성
-            Intent intent = new Intent(seat.this, LoginActivity.class);
+            Intent intent = new Intent(SeatActivity.this, SeatActivity.class);
             startActivity(intent);
             finish();
         }

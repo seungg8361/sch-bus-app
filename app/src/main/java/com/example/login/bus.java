@@ -44,28 +44,28 @@ public class bus extends Activity{
         gyodae2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String SelectGyodae2 = gyodae2.getText().toString();
+                String SelectGyodae2 = "gyodae2";
                 new BusSelectionTask().execute(SelectGyodae2);
             }
         });
         ansan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String SelectAnsan = ansan.getText().toString();
+                String SelectAnsan = "ansan";
                 new BusSelectionTask().execute(SelectAnsan);
             }
         });
         incheon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String SelectIncheon = incheon.getText().toString();
+                String SelectIncheon = "incheon";
                 new BusSelectionTask().execute(SelectIncheon);
             }
         });
         songnae.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String SelectSongnae = songnae.getText().toString();
+                String SelectSongnae = "songnae";
                 new BusSelectionTask().execute(SelectSongnae);
             }
         });
@@ -138,6 +138,10 @@ public class bus extends Activity{
             // 후속 처리 로직 작성
             Intent intent = new Intent(bus.this, date.class);
             intent.putExtra("bus" , gyodae1.getText().toString());
+            intent.putExtra("bus" , gyodae2.getText().toString());
+            intent.putExtra("bus" , ansan.getText().toString());
+            intent.putExtra("bus" , incheon.getText().toString());
+            intent.putExtra("bus" , songnae.getText().toString());
             startActivity(intent);
             finish();
         }
