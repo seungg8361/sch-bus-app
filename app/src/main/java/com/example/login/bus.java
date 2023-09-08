@@ -16,7 +16,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class bus extends Activity{
+public class bus extends Activity{       // 하교 버스 선택하기
 
     private Button gyodae1;
     private Button gyodae2;

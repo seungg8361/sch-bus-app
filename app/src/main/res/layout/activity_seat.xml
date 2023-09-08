@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="좌석 선택"
+        android:textSize="35dp"
+        android:layout_gravity="center"
+        android:textStyle="bold"/>
+
+<GridLayout
+    android:id="@+id/gridLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="10"
+    android:rowCount="4"
+    android:padding="16dp"
+    android:orientation="horizontal"
+    android:background="@android:color/white">
+
+    <!-- 버스 좌석을 나타내는 버튼들 -->
+    <Button
+        android:id="@+id/seat1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:backgroundTint="#6177F1"
+        android:text="1"/>
+
+    <Button
+        android:id="@+id/seat2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_column="2"
+        android:layout_columnSpan="2"
+        android:backgroundTint="#6177F1"
+        android:text="2" />
+
+    <Button
+        android:id="@+id/seat3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_column="6"
+        android:layout_columnSpan="2"
+        android:text="3"
+        android:backgroundTint="#6177F1"/>
+
+    <Button
+        android:id="@+id/seat4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_column="8"
+        android:layout_columnSpan="2"
+        android:text="4"
+        android:backgroundTint="#6177F1"/>
+
+</GridLayout>
+
+</LinearLayout>

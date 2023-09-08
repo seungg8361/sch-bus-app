@@ -7,7 +7,7 @@
     android:padding="16dp">
 
     <Button
-        android:id="@+id/gyodae1"
+        android:id="@+id/gyodae11"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -16,7 +16,7 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/gyodae2"
+        android:id="@+id/gyodae22"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -25,7 +25,7 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/ansan"
+        android:id="@+id/ansan1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
@@ -34,7 +34,7 @@
         android:text="안산 ( 07 : 00 )" />
 
     <Button
-        android:id="@+id/incheon"
+        android:id="@+id/incheon1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
@@ -42,7 +42,7 @@
         android:textStyle="bold"
         android:text="인천 ( 06 : 30 )" />
     <Button
-        android:id="@+id/songnae"
+        android:id="@+id/songnae1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
