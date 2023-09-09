@@ -20,19 +20,25 @@ public class MainActivity extends AppCompatActivity {
         String userPw = intent.getStringExtra("userPassword");
         String message = "환영합니다." + userId + "님!";
 
-        Button reservationButton = findViewById(R.id.reservationButton);
+        Button morningButton = findViewById(R.id.morningButton);
+        Button dinnerButton = findViewById(R.id.dinnerButton);
         Button inquiryButton = (Button) findViewById(R.id.inquiryButton);
         Button louteButton = (Button) findViewById(R.id.louteButton);
-
-        reservationButton.setOnClickListener(new View.OnClickListener() {
+        morningButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent bustimeintent = new Intent(MainActivity.this, BustimeActivity.class);
-                MainActivity.this.startActivity(bustimeintent);
+                Intent intent = new Intent(MainActivity.this, bus2.class);
+                startActivity(intent);
+            }
+        });
+        dinnerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, bus.class);
+                startActivity(intent);
             }
         });
     }
-
     private long lastTimeBackPressed;
     @Override
     public void onBackPressed(){

@@ -5,6 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="110dp"
+        android:layout_marginTop="10dp"
+        app:srcCompat="@drawable/sunchun" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -16,14 +24,11 @@
         android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:minHeight="50dp"></Spinner>
+        android:minHeight="50dp"
+        android:layout_marginTop="40dp"
+        android:dropDownWidth="wrap_content">
+    </Spinner>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srcCompat="@drawable/sunchun"
-        android:layout_marginTop="200dp"/>
 
 
 </LinearLayout>

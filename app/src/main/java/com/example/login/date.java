@@ -36,6 +36,7 @@ public class date extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date);
+
         final TextView textView = findViewById(R.id.textView);
         Spinner spinner = findViewById((R.id.spinner));
         selectBus = getIntent().getStringExtra("bus");
@@ -127,7 +128,7 @@ public class date extends Activity {
         @Override
         protected void onPostExecute(String result) {
             Toast.makeText(date.this, "날짜가 선택되었습니다.", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(date.this, LoginActivity.class);
+            Intent intent = new Intent(date.this, SeatActivity.class);
             startActivity(intent);
             super.onPostExecute(result);
             try {

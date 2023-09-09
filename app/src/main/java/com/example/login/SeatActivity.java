@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
@@ -18,7 +20,7 @@ public class SeatActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_date);
+        setContentView(R.layout.activity_seat);
 
     }
     private class SeatSelectionTask extends AsyncTask<String, Void, String >{
@@ -88,6 +90,37 @@ public class SeatActivity extends Activity{
             Intent intent = new Intent(SeatActivity.this, SeatActivity.class);
             startActivity(intent);
             finish();
+            try{
+                JSONObject seatStatus = new JSONObject(result);
+                updateSeatUI(seatStatus);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        private void updateSeatUI(JSONObject seatStatus) throws JSONException {
+
+            int MAX_SEATS = 40;
+
+            for (int seatNumber = 1; seatNumber <= MAX_SEATS; seatNumber++) {
+                // 예약 상태 확인 (예약 가능한 경우 "available", 예약된 경우 "reserved"로 가정)
+                String seatState = seatStatus.optString(String.valueOf(seatNumber), "");
+
+                Button seatButton = findViewById(getResources().getIdentifier("seatButton" + seatNumber, "id", getPackageName()));
+
+                if ("available".equals(seatState)) {
+                    // 예약 가능한 좌석
+                    seatButton.setEnabled(true);  // 사용자가 클릭 가능
+                    seatButton.setBackgroundColor(0xFF87CEEB); // 배경 이미지를 예약 가능한 좌석으로 설정
+                } else if ("reserved".equals(seatState)) {
+                    // 예약된 좌석
+                    seatButton.setEnabled(false);  // 사용자가 클릭 불가능
+                    seatButton.setBackgroundColor(0xFF808080);  // 배경 이미지를 예약된 좌석으로 설정
+                } else {
+                    // 다른 상태 (예: 선택 가능한 상태를 추가로 처리)
+                    seatButton.setEnabled(true);  // 사용자가 클릭 가능
+                    seatButton.setBackgroundColor(0xFF87CEEB);  // 기본 배경 이미지로 설정
+                }
+            }
         }
     }
 }

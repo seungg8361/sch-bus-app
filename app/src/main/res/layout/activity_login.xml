@@ -23,7 +23,7 @@
                 android:layout_width="125dp"
                 android:layout_height="110dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/sunchun"/>
 
             <TextView
@@ -39,8 +39,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="3dp"
                 android:text="순천향대학교 통학버스"
-                android:textColor="#2035AE"
+                android:textColor="#24549B"
                 android:textSize="25sp"
                 android:textStyle="bold"/>
         </LinearLayout>
@@ -56,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="50dp"
-                android:background="@color/colorPrimary"
+                android:background="#DEEAEF"
                 android:drawableStart="@drawable/ic_baseline_person_24"
                 android:drawableLeft="@drawable/ic_baseline_person_24"
                 android:hint="학번"
@@ -70,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:background="@color/colorPrimary"
+                android:background="#DEEAEF"
                 android:drawableStart="@drawable/ic_baseline_lock_24"
                 android:drawableLeft="@drawable/ic_baseline_lock_24"
                 android:hint="비밀번호"
@@ -85,9 +86,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:backgroundTint="#7687E4"
+                android:backgroundTint="#24549B"
                 android:text="로그인"
-                android:textColor="#6D4C41"
+                android:textColor="#FFFFFF"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -97,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:backgroundTint="#9BA0A3"
+                android:backgroundTint="#D2D3D5"
                 android:text="회원가입"
                 android:textSize="20dp" />
 
@@ -105,8 +106,9 @@
                 android:id="@+id/emergencyText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="   차량운행관련 긴급연락 :  070-4252-6500"
+                android:text="차량운행관련 긴급연락 :  070-4252-6500"
                 android:textStyle="bold"
+                android:layout_gravity="center"
                 android:textSize="20dp"
                 android:layout_marginTop="60dp"/>
 
