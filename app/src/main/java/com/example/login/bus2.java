@@ -27,7 +27,7 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loute);
+        setContentView(R.layout.activity_bus);
 
         gyodae11 = findViewById(R.id.gyodae11);
         gyodae22 = findViewById(R.id.gyodae22);
