@@ -12,9 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="순천향대학교 통학버스"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="#24549B"
         android:layout_gravity="center"
-        android:textSize="24sp"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
     <TextView
@@ -39,9 +39,9 @@
         android:layout_width="180dp"
         android:layout_height="80dp"
         android:backgroundTint="#DEEAEF"
-        android:text="등교 버스"
+        android:text="등교"
         android:textColor="#000000"
-        android:textSize="18dp"
+        android:textSize="25dp"
         android:textStyle="bold"
         android:layout_marginTop="20dp"/>
 
@@ -51,9 +51,9 @@
         android:layout_width="180dp"
         android:layout_height="80dp"
         android:backgroundTint="#DEEAEF"
-        android:text="하교 버스"
+        android:text="하교"
         android:textColor="#000000"
-        android:textSize="18dp"
+        android:textSize="25dp"
         android:textStyle="bold"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"/>
@@ -64,7 +64,7 @@
         android:id="@+id/inquiryButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:backgroundTint="#FFFFFF"
         android:drawableStart="@drawable/ic_baseline_person_24"
         android:drawableLeft="@drawable/ic_baseline_person_24"
@@ -90,7 +90,7 @@
 
 
     <Button
-        android:id="@+id/reservaioncomplete"
+        android:id="@+id/reservationcomplete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

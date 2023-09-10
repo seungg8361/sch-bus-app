@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         Button dinnerButton = findViewById(R.id.dinnerButton);
         Button inquiryButton = (Button) findViewById(R.id.inquiryButton);
         Button louteButton = (Button) findViewById(R.id.louteButton);
+        Button reservationcomplete = (Button) findViewById(R.id.reservationcomplete);
         morningButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

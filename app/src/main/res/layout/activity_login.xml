@@ -20,11 +20,11 @@
             android:background="@color/colorPrimary">
 
             <ImageView
-                android:layout_width="125dp"
+                android:layout_width="225dp"
                 android:layout_height="110dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/sunchun"/>
+                android:src="@drawable/sunchun" />
 
             <TextView
                 android:layout_width="wrap_content"
