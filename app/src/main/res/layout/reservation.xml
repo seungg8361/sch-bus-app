@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="승차권 조회"
         android:layout_gravity="center_horizontal"
@@ -16,7 +16,7 @@
         android:textStyle="bold"/>
     <TextView
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
         android:text="학번:"
@@ -24,7 +24,7 @@
         android:textStyle="bold"/>
     <TextView
         android:id="@+id/button3"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="좌석번호:"
         android:textSize="50dp"
@@ -32,7 +32,7 @@
         android:textStyle="bold"/>
     <TextView
         android:id="@+id/button4"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="50dp"
         tools:text="날짜:"
