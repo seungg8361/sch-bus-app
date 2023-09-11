@@ -106,16 +106,12 @@ public class LoginActivity extends Activity {
                         response.append(buffer, 0, bytesRead);
                     }
                     inputStreamReader.close();
-
                     result = response.toString();
                 }
-
                 conn.disconnect();
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
             return result;
         }
 
@@ -123,7 +119,6 @@ public class LoginActivity extends Activity {
         protected void onPostExecute(String result) {
             try {
                 // 서버로부터 받은 응답 처리
-
                 boolean success = result.equals("Success");
                 if (success) {
                     // 로그인 성공
@@ -133,7 +128,6 @@ public class LoginActivity extends Activity {
                     intent.putExtra("userName",userIdEditText.getText().toString());
                     startActivity(intent);
                     finish();
-
                 } else {
                     // 로그인 실패
                     Toast.makeText(LoginActivity.this, "로그인 실패!", Toast.LENGTH_SHORT).show();
