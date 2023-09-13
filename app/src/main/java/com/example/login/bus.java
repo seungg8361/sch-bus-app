@@ -18,12 +18,7 @@ import java.net.URL;
 
 public class bus extends Activity{       // 하교 버스 선택하기
 
-    private Button gyodae1;
-    private Button gyodae2;
-    private Button ansan;
-    private Button incheon;
-    private Button songnae;
-
+    private Button gyodae1,gyodae2,ansan,incheon,songnae;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

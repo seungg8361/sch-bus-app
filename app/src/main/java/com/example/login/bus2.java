@@ -18,16 +18,11 @@ import java.net.URL;
 
 public class bus2 extends Activity{      // 등교 버스 선택하기
 
-    private Button gyodae11;
-    private Button gyodae22;
-    private Button ansan1;
-    private Button incheon1;
-    private Button songnae1;
-
+    private Button gyodae11,gyodae22,ansan1,incheon1,songnae1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bus);
+        setContentView(R.layout.activity_bus2);
 
         gyodae11 = findViewById(R.id.gyodae11);
         gyodae22 = findViewById(R.id.gyodae22);

@@ -18,19 +18,42 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class SeatActivity extends Activity{
-    private Button seat1;
-
+    private Button seat1,seat2,seat3,seat4;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seat);
 
         seat1 = findViewById(R.id.seat1);
+        seat2 = findViewById(R.id.seat2);
+        seat3 = findViewById(R.id.seat3);
+        seat4 = findViewById(R.id.seat4);
 
         seat1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String seat1 = "seat1";
+                new SeatSelectionTask().execute(seat1);
+            }
+        });
+        seat2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String seat1 = "seat2";
+                new SeatSelectionTask().execute(seat1);
+            }
+        });
+        seat3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String seat1 = "seat3";
+                new SeatSelectionTask().execute(seat1);
+            }
+        });
+        seat4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String seat1 = "seat4";
                 new SeatSelectionTask().execute(seat1);
             }
         });
@@ -101,6 +124,10 @@ public class SeatActivity extends Activity{
 
             Intent intent = new Intent(SeatActivity.this, SeatActivity.class);
             intent.putExtra("seat" , seat1.getText().toString());
+            intent.putExtra("seat" , seat2.getText().toString());
+            intent.putExtra("seat" , seat3.getText().toString());
+            intent.putExtra("seat" , seat4.getText().toString());
+
             startActivity(intent);
             finish();
             try{

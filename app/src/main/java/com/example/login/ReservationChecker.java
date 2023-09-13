@@ -1,8 +1,11 @@
 package com.example.login;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,9 +17,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class ReservationChecker extends Activity {
+
+    private Button mainButton;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reservation);
+
+        mainButton = findViewById(R.id.mainButton);
+        mainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ReservationChecker.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //checkReservation(String reservationNumber) {
         //ReservationCheckTask().execute(checkReservation);
