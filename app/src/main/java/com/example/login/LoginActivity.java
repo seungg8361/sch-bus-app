@@ -53,7 +53,6 @@ public class LoginActivity extends Activity {
             }
         });
     }
-
     private class LoginTask extends AsyncTask<String, Void, String> {
 
         @Override

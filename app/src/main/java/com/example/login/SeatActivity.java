@@ -2,6 +2,7 @@ package com.example.login;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -39,22 +40,22 @@ public class SeatActivity extends Activity{
         seat2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String seat1 = "seat2";
-                new SeatSelectionTask().execute(seat1);
+                String seat2 = "seat2";
+                new SeatSelectionTask().execute(seat2);
             }
         });
         seat3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String seat1 = "seat3";
-                new SeatSelectionTask().execute(seat1);
+                String seat3 = "seat3";
+                new SeatSelectionTask().execute(seat3);
             }
         });
         seat4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String seat1 = "seat4";
-                new SeatSelectionTask().execute(seat1);
+                String seat4 = "seat4";
+                new SeatSelectionTask().execute(seat4);
             }
         });
     }
@@ -94,7 +95,8 @@ public class SeatActivity extends Activity{
                     }
                     inputStreamReader.close();
 
-                    result = response.toString();
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(response.toString()));
+                    startActivity(intent);
                 } else {
                     // 서버로부터 응답 데이터 읽기
                     InputStream inputStream = conn.getInputStream();
@@ -109,20 +111,18 @@ public class SeatActivity extends Activity{
 
                     result = response.toString();
                 }
-
                 conn.disconnect();
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
             return result;
         }
         @Override
         protected void onPostExecute(String result) {
+
             Toast.makeText(SeatActivity.this, "좌석이 선택되었습니다.", Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(SeatActivity.this, SeatActivity.class);
+            Intent intent = new Intent(SeatActivity.this, ReservationChecker.class);
             intent.putExtra("seat" , seat1.getText().toString());
             intent.putExtra("seat" , seat2.getText().toString());
             intent.putExtra("seat" , seat3.getText().toString());
