@@ -19,6 +19,7 @@ import java.net.URL;
 
 public class RegisterActivity extends Activity {
 
+    InfoDto a = new InfoDto();
     private EditText userIdEditText;
     private EditText passwordEditText;
     private EditText nameEditText;
@@ -37,12 +38,13 @@ public class RegisterActivity extends Activity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 사용자가 입력한 회원가입 정보 가져오기
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                intent.putExtra("user_id", userIdEditText.getText().toString());
+
                 String userId = userIdEditText.getText().toString();
                 String userPwd = passwordEditText.getText().toString();
                 String userName = nameEditText.getText().toString();
 
-                // 회원가입 작업 실행
                 new RegisterTask().execute(userId, userPwd, userName);
             }
         });
@@ -120,8 +122,8 @@ public class RegisterActivity extends Activity {
         @Override
         protected void onPostExecute(String result) {
             Toast.makeText(RegisterActivity.this, result, Toast.LENGTH_SHORT).show();
-            // 회원가입 결과에 따른 후속 처리 로직 작성
             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            intent.putExtra("user_id",userIdEditText.getText().toString());
             startActivity(intent);
             finish();
         }

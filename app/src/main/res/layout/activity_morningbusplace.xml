@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="113dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/ic_baseline_directions_bus_24" />
+
+    <Button
+        android:id="@+id/gyodaeplace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="#ffffff"
+        android:text="교대 ( 06 : 30 )"
+        android:textStyle="bold"
+        android:textSize="18dp"/>
+
+    <Button
+        android:id="@+id/gyodaeplace2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="#ffffff"
+        android:text="교대 ( 08 : 00 )"
+        android:textStyle="bold"
+        android:textSize="18dp"/>
+
+    <Button
+        android:id="@+id/ansanplace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:textStyle="bold"
+        android:layout_marginTop="30dp"
+        android:text="안산 ( 07 : 00 )"
+        android:textSize="18dp"/>
+
+    <Button
+        android:id="@+id/incheonplace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:text="인천 ( 06 : 30 )"
+        android:textSize="18dp"/>
+    <Button
+        android:id="@+id/songnaeplace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:text="송내역 ( 06 : 40 )"
+        android:textSize="18dp"/>
+
+</LinearLayout>

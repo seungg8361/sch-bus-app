@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,12 +18,14 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-
 public class LoginActivity extends Activity {
 
     private EditText userIdEditText;
     private EditText passwordEditText;
     private Button loginButton;
+
+    private boolean doubleBackToExitPressedOnce = false;
+    InfoDto a = new InfoDto();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +39,13 @@ public class LoginActivity extends Activity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 사용자가 입력한 아이디와 비밀번호 가져오기
                 String userId = userIdEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
 
-                // 로그인 작업 실행
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.putExtra("user_id", userId);
+                startActivity(intent);
+
                 new LoginTask().execute(userId, password);
             }
         });
@@ -122,19 +127,32 @@ public class LoginActivity extends Activity {
                 if (success) {
                     // 로그인 성공
                     Toast.makeText(LoginActivity.this, "로그인 성공!", Toast.LENGTH_SHORT).show();
-                    // 로그인 성공한 후의 처리 로직 작성
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("userName",userIdEditText.getText().toString());
+                    intent.putExtra("user_id",a.getUserId());
                     startActivity(intent);
                     finish();
                 } else {
                     // 로그인 실패
                     Toast.makeText(LoginActivity.this, "로그인 실패!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
+                    startActivity(intent);
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "한 번 더 눌러 뒤로가기 버튼을 종료합니다.", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000); // 2초 동안 두 번 눌러야 함
     }
 }

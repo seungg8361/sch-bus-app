@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -17,12 +18,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class bus2 extends Activity{      // 등교 버스 선택하기
-
+    InfoDto d = new InfoDto();
     private Button gyodae11,gyodae22,ansan1,incheon1,songnae1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus2);
+
+        Intent intent = getIntent();
+        String userId = intent.getStringExtra("user_id");
 
         gyodae11 = findViewById(R.id.gyodae11);
         gyodae22 = findViewById(R.id.gyodae22);
@@ -32,36 +36,71 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
         gyodae11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String SelectGyodae1 = "gyodae1";
-                new BusSelectionTask().execute(SelectGyodae1);
+                Intent intent = new Intent(bus2.this, date.class);
+                String SelectGyodae11 = "gyodae11";
+                d.setBus(SelectGyodae11);
+                d.setUserId(userId);
+                intent.putExtra("user_id", d.getUserId());
+                intent.putExtra("bus" , d.getBus());
+                startActivity(intent);
+
+                new BusSelectionTask().execute(d.getBus());
             }
         });
         gyodae22.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String SelectGyodae2 = "gyodae2";
-                new BusSelectionTask().execute(SelectGyodae2);
+                Intent intent = new Intent(bus2.this, date.class);
+                String SelectGyodae22 = "gyodae22";
+                d.setBus(SelectGyodae22);
+                d.setUserId(userId);
+                intent.putExtra("user_id", d.getUserId());
+                intent.putExtra("bus" , d.getBus());
+                startActivity(intent);
+
+                new BusSelectionTask().execute(d.getBus());
             }
         });
         ansan1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String SelectAnsan = "ansan";
-                new BusSelectionTask().execute(SelectAnsan);
+                Intent intent = new Intent(bus2.this, date.class);
+                String SelectAnsan1 = "ansan1";
+                d.setBus(SelectAnsan1);
+                d.setUserId(userId);
+                intent.putExtra("user_id", d.getUserId());
+                intent.putExtra("bus" , d.getBus());
+                startActivity(intent);
+
+                new BusSelectionTask().execute(d.getBus());
             }
         });
         incheon1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String SelectIncheon = "incheon";
-                new BusSelectionTask().execute(SelectIncheon);
+                Intent intent = new Intent(bus2.this, date.class);
+                String SelectIncheon1 = "incheon1";
+                d.setBus(SelectIncheon1);
+                d.setUserId(userId);
+                intent.putExtra("user_id", d.getUserId());
+                intent.putExtra("bus" , d.getBus());
+                startActivity(intent);
+
+                new BusSelectionTask().execute(d.getBus());
             }
         });
         songnae1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String SelectSongnae = "songnae";
-                new BusSelectionTask().execute(SelectSongnae);
+                Intent intent = new Intent(bus2.this, date.class);
+                String SelectSongnae1 = "songnae1";
+                d.setBus(SelectSongnae1);
+                d.setUserId(userId);
+                intent.putExtra("user_id", d.getUserId());
+                intent.putExtra("bus" , d.getBus());
+                startActivity(intent);
+
+                new BusSelectionTask().execute(d.getBus());
             }
         });
     }
@@ -80,7 +119,6 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
                 conn.setDoOutput(true);
                 conn.setDoInput(true);
 
-                // 회원가입 정보를 JSON 형태로 변환
                 JSONObject jsonParams = new JSONObject();
                 jsonParams.put("bus", busName);
 
@@ -130,15 +168,20 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
         @Override
         protected void onPostExecute(String result) {
             Toast.makeText(bus2.this, result, Toast.LENGTH_SHORT).show();
-            // 후속 처리 로직 작성
             Intent intent = new Intent(bus2.this, date.class);
-            intent.putExtra("bus" , gyodae11.getText().toString());
-            intent.putExtra("bus" , gyodae22.getText().toString());
-            intent.putExtra("bus" , ansan1.getText().toString());
-            intent.putExtra("bus" , incheon1.getText().toString());
-            intent.putExtra("bus" , songnae1.getText().toString());
+            intent.putExtra("bus" , d.getBus());
+            intent.putExtra("userId", d.getUserId());
             startActivity(intent);
             finish();
         }
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent intent = new Intent(bus2.this, MainActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
