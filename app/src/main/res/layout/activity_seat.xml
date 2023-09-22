@@ -7,11 +7,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="좌석 선택"
+        android:hint="좌석 선택"
         android:textSize="25dp"
         android:layout_gravity="center"
-        android:textStyle="bold"
-        android:textColor="#000000"/>
+        android:textStyle="bold"/>
 
     <GridLayout
         android:id="@+id/gridLayout"

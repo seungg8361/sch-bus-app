@@ -51,24 +51,30 @@ public class SeatActivity extends Activity{
             @Override
             public void onClick(View view) {
                 String Selectseat2 = "seat2";
-                dto.setSeat(String.valueOf(seat2));
-                new SeatSelectionTask().execute(Selectseat2);
+                String SelectBus = selectBus;
+                String SelectDate = selectDate;
+                dto.setBus(SelectBus);
+                new SeatSelectionTask().execute(SelectBus,SelectDate,Selectseat2);
             }
         });
         seat3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String Selectseat3 = "seat3";
-                dto.setSeat(String.valueOf(seat3));
-                new SeatSelectionTask().execute(Selectseat3);
+                String SelectBus = selectBus;
+                String SelectDate = selectDate;
+                dto.setBus(SelectBus);
+                new SeatSelectionTask().execute(SelectBus,SelectDate,Selectseat3);
             }
         });
         seat4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String Selectseat4 = "seat4";
-                dto.setSeat(String.valueOf(seat4));
-                new SeatSelectionTask().execute(Selectseat4);
+                String SelectBus = selectBus;
+                String SelectDate = selectDate;
+                dto.setBus(SelectBus);
+                new SeatSelectionTask().execute(SelectBus,SelectDate,Selectseat4);
             }
         });
     }

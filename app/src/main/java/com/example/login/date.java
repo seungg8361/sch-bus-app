@@ -54,7 +54,7 @@ public class date extends Activity {
             @Override
             public  void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedDate = (String) parent.getItemAtPosition(position);
-                if (!"날짜 선택".equals(selectedDate)){
+                if (!"날짜를 선택해주세요.".equals(selectedDate)){
                     Toast.makeText(date.this, "선택된 날짜: " + selectedDate, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(date.this, SeatActivity.class);
                     e.setBus(selectBus);
@@ -71,7 +71,7 @@ public class date extends Activity {
             }
         });
     }
-             private List<String> generateDateList(int numberOfDays) {
+            private List<String> generateDateList(int numberOfDays) {
                     List<String> dateList = new ArrayList<>();
                     Calendar calendar = Calendar.getInstance();
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
