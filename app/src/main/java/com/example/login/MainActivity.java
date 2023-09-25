@@ -23,7 +23,7 @@ public class MainActivity extends Activity{
         Intent intent = getIntent();
         String userId = intent.getStringExtra("user_id");
         b.setUserId(userId);
-        Toast.makeText(MainActivity.this, "환영합니다."+ userId, Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, "환영합니다 "+ userId + " 님!", Toast.LENGTH_SHORT).show();
 
         Button morningButton = findViewById(R.id.morningButton);
         Button dinnerButton = findViewById(R.id.dinnerButton);

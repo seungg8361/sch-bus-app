@@ -31,11 +31,7 @@
         android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginTop="50dp"
-        android:minHeight="100dp"
-        android:dropDownWidth="wrap_content"
-        android:dropDownHeight="200dp"
-        android:dropDownSelector="@drawable/my_selector">
+        android:layout_marginTop="50dp">
     </Spinner>
 
 </LinearLayout>

@@ -27,7 +27,7 @@ import java.util.List;
 
 public class date extends Activity {
     //String[] items = {"날짜 선택","2023-09-18", "2023-09-19", "2023-09-20", "2023-09-21", "2023-09-22"};
-    //Button seatButtons[];
+   // Button seatButtons[];
     private String selectBus;
     private AdapterView<Adapter> spinner;
     InfoDto e = new InfoDto();
@@ -43,7 +43,7 @@ public class date extends Activity {
         final TextView textView = findViewById(R.id.textView);
         Spinner spinner = findViewById((R.id.spinner));
 
-        List<String> dateList = generateDateList(5); // 5일간의 날짜를 생성
+        List<String> dateList = generateDateList(5);//            5일간의 날짜를 생성
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item, dateList //items
@@ -54,6 +54,7 @@ public class date extends Activity {
             @Override
             public  void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedDate = (String) parent.getItemAtPosition(position);
+
                 if (!"날짜를 선택해주세요.".equals(selectedDate)){
                     Toast.makeText(date.this, "선택된 날짜: " + selectedDate, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(date.this, SeatActivity.class);
@@ -73,27 +74,16 @@ public class date extends Activity {
     }
             private List<String> generateDateList(int numberOfDays) {
                     List<String> dateList = new ArrayList<>();
+                    dateList.add("날짜를 선택해주세요.");
                     Calendar calendar = Calendar.getInstance();
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-                 for (int i = 0; i < numberOfDays; i++) {
-                        dateList.add(sdf.format(calendar.getTime()));
-                        calendar.add(Calendar.DAY_OF_MONTH, 1);
-                 }
-                        return dateList;
+                for (int i = 0; i < numberOfDays; i++) {
+                    dateList.add(sdf.format(calendar.getTime()));
+                    calendar.add(Calendar.DAY_OF_MONTH, 1);
+                }
+                    return dateList;
             }
-    //@Override
-    //public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-    //  if(position>0){
-    //    Intent intent = new Intent(date.this, SeatActivity.class);
-    //  e.setBus(selectBus);
-    //intent.putExtra("bus" , e.getBus());
-    //e.setDate(items[position]);
-    //intent.putExtra("date", e.getDate());
-    //startActivity(intent);
-    //new DateSelectionTask().execute(items[position], String.valueOf(selectBus));
-    //}
-
     private class DateSelectionTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -169,28 +159,6 @@ public class date extends Activity {
             startActivity(intent);
 
             super.onPostExecute(result);
-            //try {
-            //    JSONArray reservedSeats = new JSONArray(result);
-
-            //    List<String> reservedSeatList = new ArrayList<>();
-            //    for (int i = 0; i < reservedSeats.length(); i++) {
-            //        String seatNumber = reservedSeats.getString(i);
-            //        reservedSeatList.add(seatNumber);
-            //    }
-
-            //    for (String seatNumber : reservedSeatList) {
-            //        int index = Integer.parseInt(seatNumber) - 1;
-
-            //        if (index >= 0 && index < seatButtons.length) {
-            //            Button seatButton = seatButtons[index];
-            //            seatButton.setEnabled(false);
-            //            seatButton.setBackgroundColor(Color.GRAY);
-            //        }
-            //    }
-
-            //} catch (JSONException e) {
-            //    e.printStackTrace();
-            //}
         }
     }
     @Override
