@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -27,7 +26,6 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
 
         Intent intent = getIntent();
         String userId = intent.getStringExtra("user_id");
-
         gyodae11 = findViewById(R.id.gyodae11);
         gyodae22 = findViewById(R.id.gyodae22);
         ansan1 = findViewById(R.id.ansan1);
@@ -44,7 +42,7 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
                 intent.putExtra("bus" , d.getBus());
                 startActivity(intent);
 
-                new BusSelectionTask().execute(d.getBus());
+                new BusSelectionTask().execute(d.getBus(),d.getUserId());
             }
         });
         gyodae22.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +56,7 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
                 intent.putExtra("bus" , d.getBus());
                 startActivity(intent);
 
-                new BusSelectionTask().execute(d.getBus());
+                new BusSelectionTask().execute(d.getBus(),d.getUserId());
             }
         });
         ansan1.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +70,7 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
                 intent.putExtra("bus" , d.getBus());
                 startActivity(intent);
 
-                new BusSelectionTask().execute(d.getBus());
+                new BusSelectionTask().execute(d.getBus(),d.getUserId());
             }
         });
         incheon1.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +84,7 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
                 intent.putExtra("bus" , d.getBus());
                 startActivity(intent);
 
-                new BusSelectionTask().execute(d.getBus());
+                new BusSelectionTask().execute(d.getBus(),d.getUserId());
             }
         });
         songnae1.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +98,7 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
                 intent.putExtra("bus" , d.getBus());
                 startActivity(intent);
 
-                new BusSelectionTask().execute(d.getBus());
+                new BusSelectionTask().execute(d.getBus(), d.getUserId());
             }
         });
     }
@@ -109,6 +107,7 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
         protected String doInBackground(String... params) {
             String urlString = "http://10.114.10.15:8080/select_bus";
             String busName = params[0];
+            String userId = params[1];
             String result = "";
 
             try {
@@ -120,6 +119,7 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
                 conn.setDoInput(true);
 
                 JSONObject jsonParams = new JSONObject();
+                jsonParams.put("user", userId);
                 jsonParams.put("bus", busName);
 
                 DataOutputStream os = new DataOutputStream(conn.getOutputStream());
@@ -128,7 +128,6 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
                 os.close();
 
                 if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    //Toast.makeText(bus.this, "성공이다", Toast.LENGTH_SHORT).show();
                     // 서버로부터 응답 데이터 읽기
                     InputStream inputStream = conn.getInputStream();
                     InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -142,7 +141,6 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
 
                     result = response.toString();
                 } else {
-                    //Toast.makeText(bus.this, "성공해라", Toast.LENGTH_SHORT).show();
                     // 서버로부터 응답 데이터 읽기
                     InputStream inputStream = conn.getInputStream();
                     InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -174,14 +172,5 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
             startActivity(intent);
             finish();
         }
-    }
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent intent = new Intent(bus2.this, MainActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
     }
 }

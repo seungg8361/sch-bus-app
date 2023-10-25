@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +29,7 @@ public class bus extends Activity{       // 하교 버스 선택하기
 
         Intent intent = getIntent();
         String userId = intent.getStringExtra("user_id");
+        Log.i("user_id", String.valueOf(userId));
 
         gyodae1 = findViewById(R.id.gyodae1);
         gyodae2 = findViewById(R.id.gyodae2);
@@ -46,7 +48,7 @@ public class bus extends Activity{       // 하교 버스 선택하기
                 intent.putExtra("bus" , c.getBus());
                 startActivity(intent);
 
-                new bus.BusSelectionTask().execute(c.getBus());
+                new bus.BusSelectionTask().execute(c.getBus(),c.getUserId());
             }
         });
         gyodae2.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +62,7 @@ public class bus extends Activity{       // 하교 버스 선택하기
                 intent.putExtra("bus" , c.getBus());
                 startActivity(intent);
 
-                new bus.BusSelectionTask().execute(c.getBus());
+                new bus.BusSelectionTask().execute(c.getBus(),c.getUserId());
             }
         });
         ansan.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +76,7 @@ public class bus extends Activity{       // 하교 버스 선택하기
                 intent.putExtra("bus" , c.getBus());
                 startActivity(intent);
 
-                new bus.BusSelectionTask().execute(c.getBus());
+                new bus.BusSelectionTask().execute(c.getBus(),c.getUserId());
             }
         });
         incheon.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +90,7 @@ public class bus extends Activity{       // 하교 버스 선택하기
                 intent.putExtra("bus" , c.getBus());
                 startActivity(intent);
 
-                new bus.BusSelectionTask().execute(c.getBus());
+                new bus.BusSelectionTask().execute(c.getBus(),c.getUserId());
             }
         });
         songnae.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +104,7 @@ public class bus extends Activity{       // 하교 버스 선택하기
                 intent.putExtra("bus" , c.getBus());
                 startActivity(intent);
 
-                new bus.BusSelectionTask().execute(c.getBus());
+                new bus.BusSelectionTask().execute(c.getBus(),c.getUserId());
             }
         });
     }
@@ -111,6 +113,7 @@ public class bus extends Activity{       // 하교 버스 선택하기
         protected String doInBackground(String... params) {
             String urlString = "http://10.114.10.15:8080/select_bus";
             String busName = params[0];
+            String userId = params[1];
             String result = "";
 
             try {
@@ -123,6 +126,7 @@ public class bus extends Activity{       // 하교 버스 선택하기
 
                 // 회원가입 정보를 JSON 형태로 변환
                 JSONObject jsonParams = new JSONObject();
+                jsonParams.put("user", userId);
                 jsonParams.put("bus", busName);
 
                 DataOutputStream os = new DataOutputStream(conn.getOutputStream());

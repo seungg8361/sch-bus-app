@@ -5,12 +5,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
@@ -28,7 +26,9 @@ public class SeatActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seat);
 
+
         Intent intent = getIntent();
+        String selectUser = intent.getStringExtra("user_id");
         String selectBus = intent.getStringExtra("bus");
         String selectDate = intent.getStringExtra("date");
 
@@ -40,41 +40,29 @@ public class SeatActivity extends Activity{
         seat1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat1 = "seat1";
-                String SelectBus = selectBus;
-                String SelectDate = selectDate;
-                dto.setBus(SelectBus);
-                new SeatSelectionTask().execute(SelectBus,SelectDate,Selectseat1);
+                String Selectseat1 = "1";
+                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat1,selectUser);
             }
         });
         seat2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat2 = "seat2";
-                String SelectBus = selectBus;
-                String SelectDate = selectDate;
-                dto.setBus(SelectBus);
-                new SeatSelectionTask().execute(SelectBus,SelectDate,Selectseat2);
+                String Selectseat2 = "2";
+                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat2,selectUser);
             }
         });
         seat3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat3 = "seat3";
-                String SelectBus = selectBus;
-                String SelectDate = selectDate;
-                dto.setBus(SelectBus);
-                new SeatSelectionTask().execute(SelectBus,SelectDate,Selectseat3);
+                String Selectseat3 = "3";
+                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat3,selectUser);
             }
         });
         seat4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat4 = "seat4";
-                String SelectBus = selectBus;
-                String SelectDate = selectDate;
-                dto.setBus(SelectBus);
-                new SeatSelectionTask().execute(SelectBus,SelectDate,Selectseat4);
+                String Selectseat4 = "4";
+                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat4,selectUser);
             }
         });
     }
@@ -85,6 +73,7 @@ public class SeatActivity extends Activity{
             String bus = params[0];
             String date = params[1];
             String seat = params[2];
+            String user = params[3];
             String result = "";
 
             try {
@@ -100,6 +89,7 @@ public class SeatActivity extends Activity{
                 jsonParams.put("bus", bus);
                 jsonParams.put("date", date);
                 jsonParams.put("seat", seat);
+                jsonParams.put("user", user);
 
                 DataOutputStream os = new DataOutputStream(conn.getOutputStream());
                 os.writeBytes(jsonParams.toString());
@@ -143,31 +133,10 @@ public class SeatActivity extends Activity{
         }
         @Override
         protected void onPostExecute(String result) {
-
                 Toast.makeText(SeatActivity.this, "좌석이 선택되었습니다.", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(SeatActivity.this, ReservationChecker.class);
-                dto.setSeat(dto.getSeat());
-                dto.setBus(dto.getBus());
-                dto.setDate(dto.getDate());
-                intent.putExtra("bus" , dto.getBus());
-                intent.putExtra("date", dto.getDate());
-                intent.putExtra("seat", dto.getSeat());
                 startActivity(intent);
                 finish();
-            try{
-                JSONObject seatStatus = new JSONObject(result);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
         }
-    }
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent intent = new Intent(SeatActivity.this, MainActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
     }
 }

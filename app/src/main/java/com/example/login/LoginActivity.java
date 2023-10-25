@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,7 +23,6 @@ public class LoginActivity extends Activity {
     private EditText passwordEditText;
     private Button loginButton;
 
-    private boolean doubleBackToExitPressedOnce = false;
     InfoDto a = new InfoDto();
 
     @Override
@@ -41,10 +39,9 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
                 String userId = userIdEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
-
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.putExtra("user_id", userId);
-                startActivity(intent);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("user_id", userId);
+                    startActivity(intent);
 
                 new LoginTask().execute(userId, password);
             }
@@ -126,9 +123,9 @@ public class LoginActivity extends Activity {
                 boolean success = result.equals("Success");
                 if (success) {
                     // 로그인 성공
-                    Toast.makeText(LoginActivity.this, "로그인 성공!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "환영합니다 " + userIdEditText.getText().toString() + " 님!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("user_id",a.getUserId());
+                    intent.putExtra("user_id",userIdEditText.getText().toString());
                     startActivity(intent);
                     finish();
                 } else {
@@ -142,17 +139,5 @@ public class LoginActivity extends Activity {
                 e.printStackTrace();
             }
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
-        }
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "한 번 더 눌러 뒤로가기 버튼을 종료합니다.", Toast.LENGTH_SHORT).show();
-
-        new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000); // 2초 동안 두 번 눌러야 함
     }
 }

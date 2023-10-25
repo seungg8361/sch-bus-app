@@ -38,12 +38,13 @@ public class RegisterActivity extends Activity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                intent.putExtra("user_id", userIdEditText.getText().toString());
-
                 String userId = userIdEditText.getText().toString();
                 String userPwd = passwordEditText.getText().toString();
                 String userName = nameEditText.getText().toString();
+
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                intent.putExtra("user_id", userId);
+                startActivity(intent);
 
                 new RegisterTask().execute(userId, userPwd, userName);
             }

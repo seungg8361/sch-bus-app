@@ -4,12 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
@@ -23,6 +22,7 @@ public class ReservationChecker extends Activity {
     InfoDto dto = new InfoDto();
     private Button mainButton;
     private TextView user, bus,seat,date;
+    String userId;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reservation);
@@ -32,9 +32,13 @@ public class ReservationChecker extends Activity {
         seat = findViewById(R.id.seatnumber);
         date = findViewById(R.id.datenumber);
 
-        new ReservationCheckTask().execute(String.valueOf(bus),String.valueOf(seat),String.valueOf(date));
+        Intent intent = getIntent();
+        userId = intent.getStringExtra("user_id");
+        dto.setUserId(userId);
+        dto.setBus(String.valueOf(bus));
+        dto.setSeat(String.valueOf(seat));
 
-        user.setText(dto.getUserId() + "님의 승차권");
+        new ReservationCheckTask().execute(dto.getUserId(),dto.getBus(),dto.getSeat());
 
         mainButton = findViewById(R.id.mainButton);
         mainButton.setOnClickListener(new View.OnClickListener() {
@@ -48,10 +52,10 @@ public class ReservationChecker extends Activity {
     private class ReservationCheckTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-            String urlString = "http://10.114.10.15:8080/kakaoPaySuccess";
-            String busnumber = params[0];
-            String seatnumber = params[1];
-            String datenumber = params[2];
+            String urlString = "http://10.114.10.15:8080/check_my_ticket";
+            String userId = params[0];
+            String date = params[1];
+            String seat = params[2];
             String result = "";
 
             try {
@@ -64,9 +68,9 @@ public class ReservationChecker extends Activity {
 
                 // 예약 번호를 JSON 형태로 변환
                 JSONObject jsonParams = new JSONObject();
-                jsonParams.put("usernumber", busnumber);
-                jsonParams.put("seatnumber", seatnumber);
-                jsonParams.put("datenumber", datenumber);
+                jsonParams.put("user", userId);
+                jsonParams.put("date", date);
+                jsonParams.put("seat", seat);
 
                 DataOutputStream os = new DataOutputStream(conn.getOutputStream());
                 os.writeBytes(jsonParams.toString());
@@ -108,20 +112,23 @@ public class ReservationChecker extends Activity {
         }
         @Override
         protected void onPostExecute(String result) {
-            Toast.makeText(ReservationChecker.this, result, Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(ReservationChecker.this, ReservationChecker.class);
-            startActivity(intent);
-            finish();
+            try {
+                JSONObject sresult = new JSONObject(result);
+                String users = sresult.getString("user");
+                String buss = sresult.getString("bus");
+                String seats = sresult.getString("seat");
+                dto.setUserId(users);
+                dto.setBus(String.valueOf(bus));
+                dto.setSeat(String.valueOf(seat));
+                user = findViewById(R.id.tvTitle);
+                user.setText(users + " 님의 승차권");
+                bus = findViewById(R.id.busnumber);
+                bus.setText("버스 : "+buss);
+                seat = findViewById(R.id.seatnumber);
+                seat.setText("좌석 :  "+seats +" 번 좌석");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            }
         }
     }
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent intent = new Intent(ReservationChecker.this, MainActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-}

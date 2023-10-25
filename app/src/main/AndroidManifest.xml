@@ -47,9 +47,6 @@
             android:name=".dinnerpicture"
             android:exported="false" />
         <activity
-            android:name=".busplace"
-            android:exported="false" />
-        <activity
             android:name=".ReservationChecker"
             android:exported="false" />
         <activity
@@ -57,13 +54,14 @@
             android:exported="false" />
         <activity
             android:name=".date"
-            android:exported="false" />
+            android:launchMode="singleTask"/>
         <activity
             android:name=".bus2"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />

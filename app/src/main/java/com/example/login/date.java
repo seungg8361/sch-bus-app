@@ -4,13 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -26,45 +25,44 @@ import java.util.Calendar;
 import java.util.List;
 
 public class date extends Activity {
-    //String[] items = {"날짜 선택","2023-09-18", "2023-09-19", "2023-09-20", "2023-09-21", "2023-09-22"};
-   // Button seatButtons[];
     private String selectBus;
     private AdapterView<Adapter> spinner;
     InfoDto e = new InfoDto();
-
+    String userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date);
 
         Intent intent = getIntent();
-        selectBus = intent.getStringExtra("bus"); //                     버스 정보 가져오기
-
-        final TextView textView = findViewById(R.id.textView);
+        selectBus = intent.getStringExtra("bus");
+        userId = intent.getStringExtra("user_id");//                     버스 정보 가져오기
+        Log.i("user_id",String.valueOf(userId));
         Spinner spinner = findViewById((R.id.spinner));
 
         List<String> dateList = generateDateList(5);//            5일간의 날짜를 생성
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, dateList //items
-        );
+                this, android.R.layout.simple_spinner_item, dateList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public  void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedDate = (String) parent.getItemAtPosition(position);
-
                 if (!"날짜를 선택해주세요.".equals(selectedDate)){
                     Toast.makeText(date.this, "선택된 날짜: " + selectedDate, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(date.this, SeatActivity.class);
                     e.setBus(selectBus);
-                    intent.putExtra("bus" , e.getBus());
                     e.setDate(dateList.get(position));
+                    e.setUserId(userId);
+                    intent.putExtra("user_id",e.getUserId());
+                    Log.i("user_id",String.valueOf(userId));
                     intent.putExtra("date", e.getDate());
+                    intent.putExtra("bus" , e.getBus());
                     startActivity(intent);
 
-                    new DateSelectionTask().execute(dateList.get(position), String.valueOf(selectBus));
+                    new DateSelectionTask().execute(e.getUserId(),dateList.get(position), String.valueOf(selectBus));
                 }
             }
             @Override
@@ -72,7 +70,7 @@ public class date extends Activity {
             }
         });
     }
-            private List<String> generateDateList(int numberOfDays) {
+    private List<String> generateDateList(int numberOfDays) {
                     List<String> dateList = new ArrayList<>();
                     dateList.add("날짜를 선택해주세요.");
                     Calendar calendar = Calendar.getInstance();
@@ -88,8 +86,9 @@ public class date extends Activity {
         @Override
         protected String doInBackground(String... params) {
             String urlString = "http://10.114.10.15:8080/select_date";
-            String date = params[0];
-            String bus = params[1];
+            String userId = params[0];
+            String date = params[1];
+            String bus = params[2];
             String result = "";
 
             try {
@@ -102,7 +101,7 @@ public class date extends Activity {
 
                 // 회원가입 정보를 JSON 형태로 변환
                 JSONObject jsonParams = new JSONObject();
-
+                jsonParams.put("user", userId);
                 jsonParams.put("date", date);
                 jsonParams.put("bus", bus);
 
@@ -151,23 +150,7 @@ public class date extends Activity {
         @Override
         protected void onPostExecute(String result) {
             Toast.makeText(date.this, "날짜가 선택되었습니다.", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(date.this, SeatActivity.class);
-            intent.putExtra("date" , e.getDate());
-            intent.putExtra("bus" , e.getBus());
-            intent.putExtra("user_id", e.getUserId());
-
-            startActivity(intent);
-
             super.onPostExecute(result);
         }
-    }
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent intent = new Intent(date.this, MainActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
     }
 }

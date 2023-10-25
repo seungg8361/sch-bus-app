@@ -30,12 +30,18 @@
             android:textStyle="bold" />
 
     </LinearLayout>
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
     <TextView
         android:id="@+id/busnumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="버스:"
+        android:hint="버스:"
         android:textSize="40dp"
         android:layout_marginTop="40dp"
         android:textStyle="bold"/>
@@ -44,7 +50,7 @@
         android:id="@+id/seatnumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="좌석번호:"
+        android:hint="좌석번호:"
         android:textSize="40dp"
         android:layout_marginTop="40dp"
         android:textStyle="bold"/>
@@ -53,9 +59,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="40dp"
-        tools:text="날짜:"
+        tools:hint="날짜:"
         android:layout_marginTop="40dp"
-
         android:textStyle="bold"/>
     <Button
         android:id="@+id/mainButton"
@@ -65,4 +70,6 @@
         android:text="메인으로"
         android:layout_marginTop="90dp"
         android:textStyle="bold"/>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
