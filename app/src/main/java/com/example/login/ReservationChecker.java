@@ -139,6 +139,15 @@ public class ReservationChecker extends Activity {
                 seat.setText("좌석 :  "+seats +" 번 좌석");
                 date = findViewById(R.id.datenumber);
                 date.setText("날짜 :  " + dates);
+
+                user = findViewById(R.id.userId);
+                user.setText(users + "님");
+                bus = findViewById(R.id.busnumber);
+                bus.setText("버스 :  "+buss);
+                seat = findViewById(R.id.seatnumber);
+                seat.setText("좌석 :  "+seats +" 번 좌석");
+                date = findViewById(R.id.datenumber);
+                date.setText("날짜 :  " + dates);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

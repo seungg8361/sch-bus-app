@@ -9,24 +9,35 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:background="@color/colorPrimary">
-
-        <ImageView
-            android:layout_width="225dp"
-            android:layout_height="110dp"
-            android:layout_gravity="center"
-            android:src="@drawable/sunchun" />
-
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="◀"
+            android:backgroundTint="#B4DAEC"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary">
+    <ImageView
+        android:layout_width="225dp"
+        android:layout_height="110dp"
+        android:src="@drawable/sunchun"
+        android:layout_marginLeft="30dp"/>
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="순천향대학교 통학버스"
         android:textColor="#4E3A3A"
-        android:layout_gravity="center"
         android:textSize="30sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"/>
+
+</LinearLayout>
 
     </LinearLayout>
 
@@ -128,6 +139,8 @@
             android:textColor="#000000"
             android:textSize="18dp"
             android:textStyle="bold" />
+
+
     </LinearLayout>
 
 </LinearLayout>

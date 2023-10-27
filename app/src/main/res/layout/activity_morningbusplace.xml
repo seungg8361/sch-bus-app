@@ -61,5 +61,12 @@
         android:textStyle="bold"
         android:text="송내역 ( 06 : 40 )"
         android:textSize="18dp"/>
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="←"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#B4DAEC"/>
 
 </LinearLayout>

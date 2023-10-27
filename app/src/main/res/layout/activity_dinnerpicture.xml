@@ -5,8 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".dinnerpicture">
-
+    tools:context=".dinnerpicture"
+    android:padding="16dp">
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#F9F9F9"
+        android:text="◀" />
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="match_parent"
@@ -17,7 +23,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="교대 (15 : 20),  교대 (19: 00)      안산 (19 : 00)   인천 (18 : 30)  송내 (19 : 00)"
-        android:textSize="30dp"
+        android:text="교대 (15 : 20),  교대 (19: 00)                안산 (19 : 00)   인천 (18 : 30)               송내 (19 : 00)"
+        android:textSize="23dp"
         android:textStyle="bold"/>
+
 </LinearLayout>

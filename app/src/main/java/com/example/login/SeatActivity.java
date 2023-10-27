@@ -23,7 +23,7 @@ public class SeatActivity extends Activity{
             ,seat11,seat12,seat13,seat14,seat15,seat16,seat17,seat18,seat19,seat20
             ,seat21,seat22,seat23,seat24,seat25,seat26,seat27,seat28,seat29,seat30
             ,seat31,seat32,seat33,seat34,seat35,seat36,seat37,seat38,seat39,seat40
-            ,seat41,seat42,seat43,seat44,seat45;
+            ,seat41,seat42,seat43,seat44,seat45,backButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,23 +33,29 @@ public class SeatActivity extends Activity{
         String selectUser = intent.getStringExtra("user_id");
         String selectBus = intent.getStringExtra("bus");
         String selectDate = intent.getStringExtra("date");
-
+        backButton = findViewById(R.id.backButton);
         seat1 = findViewById(R.id.seat1);seat2 = findViewById(R.id.seat2);seat3 = findViewById(R.id.seat3);
-        seat4 = findViewById(R.id.seat4);seat5 = findViewById(R.id.seat4);seat6 = findViewById(R.id.seat4);
-        seat7 = findViewById(R.id.seat4);seat8 = findViewById(R.id.seat4);seat9 = findViewById(R.id.seat4);
-        seat10 = findViewById(R.id.seat4);seat11 = findViewById(R.id.seat4);seat12 = findViewById(R.id.seat4);
-        seat13 = findViewById(R.id.seat4);seat14 = findViewById(R.id.seat4);seat15 = findViewById(R.id.seat4);
-        seat16 = findViewById(R.id.seat4);seat17 = findViewById(R.id.seat4);seat18 = findViewById(R.id.seat4);
-        seat19 = findViewById(R.id.seat4);seat20 = findViewById(R.id.seat4);seat21 = findViewById(R.id.seat4);
-        seat22 = findViewById(R.id.seat4);seat23 = findViewById(R.id.seat4);seat24 = findViewById(R.id.seat4);
-        seat25 = findViewById(R.id.seat4);seat26 = findViewById(R.id.seat4);seat27 = findViewById(R.id.seat4);
-        seat28 = findViewById(R.id.seat4);seat29 = findViewById(R.id.seat4);seat30 = findViewById(R.id.seat4);
-        seat31 = findViewById(R.id.seat4);seat32 = findViewById(R.id.seat4);seat33 = findViewById(R.id.seat4);
-        seat34 = findViewById(R.id.seat4);seat35 = findViewById(R.id.seat4);seat36 = findViewById(R.id.seat4);
-        seat37 = findViewById(R.id.seat4);seat38 = findViewById(R.id.seat4);seat39 = findViewById(R.id.seat4);
-        seat40 = findViewById(R.id.seat4);seat41 = findViewById(R.id.seat4);seat42 = findViewById(R.id.seat4);
-        seat43 = findViewById(R.id.seat4);seat44 = findViewById(R.id.seat4);seat45 = findViewById(R.id.seat4);
-
+        seat4 = findViewById(R.id.seat4);seat5 = findViewById(R.id.seat5);seat6 = findViewById(R.id.seat6);
+        seat7 = findViewById(R.id.seat7);seat8 = findViewById(R.id.seat8);seat9 = findViewById(R.id.seat9);
+        seat10 = findViewById(R.id.seat10);seat11 = findViewById(R.id.seat11);seat12 = findViewById(R.id.seat12);
+        seat13 = findViewById(R.id.seat13);seat14 = findViewById(R.id.seat14);seat15 = findViewById(R.id.seat15);
+        seat16 = findViewById(R.id.seat16);seat17 = findViewById(R.id.seat17);seat18 = findViewById(R.id.seat18);
+        seat19 = findViewById(R.id.seat19);seat20 = findViewById(R.id.seat20);seat21 = findViewById(R.id.seat21);
+        seat22 = findViewById(R.id.seat22);seat23 = findViewById(R.id.seat23);seat24 = findViewById(R.id.seat24);
+        seat25 = findViewById(R.id.seat25);seat26 = findViewById(R.id.seat26);seat27 = findViewById(R.id.seat27);
+        seat28 = findViewById(R.id.seat28);seat29 = findViewById(R.id.seat29);seat30 = findViewById(R.id.seat30);
+        seat31 = findViewById(R.id.seat31);seat32 = findViewById(R.id.seat32);seat33 = findViewById(R.id.seat33);
+        seat34 = findViewById(R.id.seat34);seat35 = findViewById(R.id.seat35);seat36 = findViewById(R.id.seat36);
+        seat37 = findViewById(R.id.seat37);seat38 = findViewById(R.id.seat38);seat39 = findViewById(R.id.seat39);
+        seat40 = findViewById(R.id.seat40);seat41 = findViewById(R.id.seat41);seat42 = findViewById(R.id.seat42);
+        seat43 = findViewById(R.id.seat43);seat44 = findViewById(R.id.seat44);seat45 = findViewById(R.id.seat45);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SeatActivity.this, date.class);
+                startActivity(intent);
+            }
+        });
         seat1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 
 public class bus2 extends Activity{      // 등교 버스 선택하기
     InfoDto d = new InfoDto();
-    private Button gyodae11,gyodae22,ansan1,incheon1,songnae1;
+    private Button gyodae11,gyodae22,ansan1,incheon1,songnae1,backButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +32,7 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
         ansan1 = findViewById(R.id.ansan1);
         incheon1 = findViewById(R.id.incheon1);
         songnae1 = findViewById(R.id.songnae1);
+        backButton = findViewById(R.id.backButton);
         gyodae11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,6 +101,13 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
                 startActivity(intent);
 
                 new BusSelectionTask().execute(d.getBus(), d.getUserId());
+            }
+        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(bus2.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }

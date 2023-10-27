@@ -24,7 +24,7 @@ public class RegisterActivity extends Activity {
     private EditText userIdEditText;
     private EditText passwordEditText;
     private EditText nameEditText;
-    private Button registerButton;
+    private Button registerButton,backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,7 @@ public class RegisterActivity extends Activity {
         passwordEditText = findViewById(R.id.passwordText);
         nameEditText = findViewById(R.id.nameText);
         registerButton = findViewById(R.id.registerButton2);
+        backButton = findViewById(R.id.backButton);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +49,13 @@ public class RegisterActivity extends Activity {
                 startActivity(intent);
 
                 new RegisterTask().execute(userId, userPwd, userName);
+            }
+        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
             }
         });
     }

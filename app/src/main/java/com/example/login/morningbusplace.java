@@ -19,7 +19,7 @@ public class morningbusplace extends AppCompatActivity {
         Button ansanplace = findViewById(R.id.ansanplace);
         Button incheonplace = findViewById(R.id.incheonplace);
         Button songnaeplace = findViewById(R.id.songnaeplace);
-
+        Button backButton = findViewById(R.id.backButton);
         gyodaeplace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +58,12 @@ public class morningbusplace extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(morningbusplace.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

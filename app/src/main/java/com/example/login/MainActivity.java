@@ -22,6 +22,7 @@ public class MainActivity extends Activity{
         Button dinnerbus = findViewById(R.id.dinnerbus);
         Button morningbus = findViewById(R.id.morningbus);
         Button inquiryButton = findViewById(R.id.inquiryButton);
+        Button backButton = findViewById(R.id.backButton);
         morningButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,6 +61,13 @@ public class MainActivity extends Activity{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, morningbusplace.class);
+                startActivity(intent);
+            }
+        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
