@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class RegisterActivity extends Activity {
 
@@ -55,7 +56,7 @@ public class RegisterActivity extends Activity {
 
         @Override
         protected String doInBackground(String... params) {
-            String urlString = "http://10.114.10.15:8080/signup_app"; // 회원가입 API URL
+            String urlString = "http://10.114.10.18:8080/signup_app"; // 회원가입 API URL
             String userId = params[0];
             String password = params[1];
             String name = params[2];
@@ -76,8 +77,9 @@ public class RegisterActivity extends Activity {
                 jsonParams.put("name", name);
 
                 // JSON 데이터를 요청의 body에 넣기
+                byte[] postData = jsonParams.toString().getBytes(StandardCharsets.UTF_8); // UTF-8로 인코딩
                 DataOutputStream os = new DataOutputStream(conn.getOutputStream());
-                os.writeBytes(jsonParams.toString());
+                os.write(postData);
                 os.flush();
                 os.close();
 

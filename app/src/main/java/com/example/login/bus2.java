@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class bus2 extends Activity{      // 등교 버스 선택하기
     InfoDto d = new InfoDto();
@@ -35,7 +36,7 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(bus2.this, date.class);
-                String SelectGyodae11 = "gyodae11";
+                String SelectGyodae11 = "교대";
                 d.setBus(SelectGyodae11);
                 d.setUserId(userId);
                 intent.putExtra("user_id", d.getUserId());
@@ -49,7 +50,7 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(bus2.this, date.class);
-                String SelectGyodae22 = "gyodae22";
+                String SelectGyodae22 = "교대2";
                 d.setBus(SelectGyodae22);
                 d.setUserId(userId);
                 intent.putExtra("user_id", d.getUserId());
@@ -63,7 +64,7 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(bus2.this, date.class);
-                String SelectAnsan1 = "ansan1";
+                String SelectAnsan1 = "안산";
                 d.setBus(SelectAnsan1);
                 d.setUserId(userId);
                 intent.putExtra("user_id", d.getUserId());
@@ -77,7 +78,7 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(bus2.this, date.class);
-                String SelectIncheon1 = "incheon1";
+                String SelectIncheon1 = "인천";
                 d.setBus(SelectIncheon1);
                 d.setUserId(userId);
                 intent.putExtra("user_id", d.getUserId());
@@ -91,7 +92,7 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(bus2.this, date.class);
-                String SelectSongnae1 = "songnae1";
+                String SelectSongnae1 = "송내";
                 d.setBus(SelectSongnae1);
                 d.setUserId(userId);
                 intent.putExtra("user_id", d.getUserId());
@@ -105,7 +106,7 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
     private class BusSelectionTask extends AsyncTask<String, Void, String >{
         @Override
         protected String doInBackground(String... params) {
-            String urlString = "http://10.114.10.15:8080/select_bus";
+            String urlString = "http://10.114.10.18:8080/select_bus";
             String busName = params[0];
             String userId = params[1];
             String result = "";
@@ -122,8 +123,9 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
                 jsonParams.put("user", userId);
                 jsonParams.put("bus", busName);
 
+                byte[] postData = jsonParams.toString().getBytes(StandardCharsets.UTF_8); // UTF-8로 인코딩
                 DataOutputStream os = new DataOutputStream(conn.getOutputStream());
-                os.writeBytes(jsonParams.toString());
+                os.write(postData);
                 os.flush();
                 os.close();
 

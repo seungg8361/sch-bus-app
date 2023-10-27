@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class LoginActivity extends Activity {
 
@@ -59,7 +60,7 @@ public class LoginActivity extends Activity {
 
         @Override
         protected String doInBackground(String... params) {
-            String urlString = "http://10.114.10.15:8080/login_app"; // 로그인 API URL
+            String urlString = "http://10.114.10.18:8080/login_app"; // 로그인 API URL
             String userId = params[0];
             String password = params[1];
             String result = "";
@@ -77,9 +78,9 @@ public class LoginActivity extends Activity {
                 jsonParams.put("user_id", userId);
                 jsonParams.put("password", password);
 
-                // JSON 데이터를 요청의 body에 넣기
+                byte[] postData = jsonParams.toString().getBytes(StandardCharsets.UTF_8); // UTF-8로 인코딩
                 DataOutputStream os = new DataOutputStream(conn.getOutputStream());
-                os.writeBytes(jsonParams.toString());
+                os.write(postData);
                 os.flush();
                 os.close();
 
@@ -130,7 +131,7 @@ public class LoginActivity extends Activity {
                     finish();
                 } else {
                     // 로그인 실패
-                    Toast.makeText(LoginActivity.this, "로그인 실패!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "아이디나 비밀번호를 확인해 주세요.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }

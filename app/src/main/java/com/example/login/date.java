@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -85,7 +86,7 @@ public class date extends Activity {
     private class DateSelectionTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-            String urlString = "http://10.114.10.15:8080/select_date";
+            String urlString = "http://10.114.10.18:8080/select_date";
             String userId = params[0];
             String date = params[1];
             String bus = params[2];
@@ -105,8 +106,9 @@ public class date extends Activity {
                 jsonParams.put("date", date);
                 jsonParams.put("bus", bus);
 
+                byte[] postData = jsonParams.toString().getBytes(StandardCharsets.UTF_8); // UTF-8로 인코딩
                 DataOutputStream os = new DataOutputStream(conn.getOutputStream());
-                os.writeBytes(jsonParams.toString());
+                os.write(postData);
                 os.flush();
                 os.close();
 

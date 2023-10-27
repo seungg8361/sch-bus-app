@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="200dp"
         android:orientation="vertical"
         android:background="@color/colorPrimary">
 
@@ -19,10 +17,20 @@
             android:src="@drawable/sunchun" />
 
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/userId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="승차권"
+            android:hint="이름"
+            android:gravity="center"
+            android:textColor="#4E3A3A"
+            android:layout_gravity="center"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="승차권"
             android:gravity="center"
             android:textColor="#4E3A3A"
             android:layout_gravity="center"
@@ -37,39 +45,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-    <TextView
-        android:id="@+id/busnumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="버스:"
-        android:textSize="40dp"
-        android:layout_marginTop="40dp"
-        android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/busnumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="버스:"
+                android:textSize="40dp"
+                android:layout_marginTop="40dp"
+                android:textStyle="bold"/>
 
-    <TextView
-        android:id="@+id/seatnumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="좌석번호:"
-        android:textSize="40dp"
-        android:layout_marginTop="40dp"
-        android:textStyle="bold"/>
-    <TextView
-        android:id="@+id/datenumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="40dp"
-        tools:hint="날짜:"
-        android:layout_marginTop="40dp"
-        android:textStyle="bold"/>
-    <Button
-        android:id="@+id/mainButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="메인으로"
-        android:layout_marginTop="90dp"
-        android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/seatnumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="좌석번호:"
+                android:textSize="40dp"
+                android:layout_marginTop="40dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/datenumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="40dp"
+                android:hint="날짜:"
+                android:layout_marginTop="40dp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/mainButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="메인으로"
+                android:layout_marginTop="90dp"
+                android:textStyle="bold"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
