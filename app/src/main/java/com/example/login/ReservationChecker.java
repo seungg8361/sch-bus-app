@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,13 +19,16 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReservationChecker extends Activity {
 
     InfoDto dto = new InfoDto();
     private Button mainButton;
-    private TextView user, bus,seat,date;
+    private TextView user, bus, seat, date;
     String userId;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reservation);
@@ -41,7 +45,7 @@ public class ReservationChecker extends Activity {
         dto.setSeat(String.valueOf(seat));
         dto.setDate(String.valueOf(date));
 
-        new ReservationCheckTask().execute(dto.getUserId(),dto.getBus(),dto.getSeat(),dto.getDate());
+        new ReservationCheckTask().execute(dto.getUserId(), dto.getBus(), dto.getSeat(), dto.getDate());
 
         mainButton = findViewById(R.id.mainButton);
         mainButton.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +56,7 @@ public class ReservationChecker extends Activity {
             }
         });
     }
+
     private class ReservationCheckTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -116,41 +121,44 @@ public class ReservationChecker extends Activity {
             }
             return result;
         }
+
         @Override
         protected void onPostExecute(String result) {
             try {
-                if (result.equals("내역이 없습니다.")) {
-                    Toast.makeText(ReservationChecker.this, result, Toast.LENGTH_SHORT).show();
-                }
-                JSONObject json = new JSONObject(result);
-                String users = json.getString("user");
-                String buss = json.getString("bus");
-                String seats = json.getString("seat");
-                String dates = json.getString("date");
-                dto.setUserId(users);
-                dto.setBus(String.valueOf(bus));
-                dto.setSeat(String.valueOf(seat));
-                dto.setDate(String.valueOf(date));
-                user = findViewById(R.id.userId);
-                user.setText(users + "님");
-                bus = findViewById(R.id.busnumber);
-                bus.setText("버스 :  "+buss);
-                seat = findViewById(R.id.seatnumber);
-                seat.setText("좌석 :  "+seats +" 번 좌석");
-                date = findViewById(R.id.datenumber);
-                date.setText("날짜 :  " + dates);
+                JSONArray jsonArray = new JSONArray(result); // JSON 배열로 파싱
+                List<String> dataList = new ArrayList<>();
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                user = findViewById(R.id.userId);
-                user.setText(users + "님");
-                bus = findViewById(R.id.busnumber);
-                bus.setText("버스 :  "+buss);
-                seat = findViewById(R.id.seatnumber);
-                seat.setText("좌석 :  "+seats +" 번 좌석");
-                date = findViewById(R.id.datenumber);
-                date.setText("날짜 :  " + dates);
+                    String userValue = jsonObject.getString("user");
+                    String busValue = jsonObject.getString("bus");
+                    String seatValue = jsonObject.getString("seat");
+                    String dateValue = jsonObject.getString("date");
+
+                    // JSON 데이터를 문자열로 생성
+                    JSONObject reservationInfoJSON = new JSONObject();
+                    reservationInfoJSON.put("bus", busValue);
+                    reservationInfoJSON.put("seat", seatValue);
+                    reservationInfoJSON.put("date", dateValue);
+
+                    dataList.add(userValue);
+                    dataList.add(busValue);
+                    dataList.add(seatValue);
+                    dataList.add(dateValue);
+                }
+
+                if (!dataList.isEmpty()) {
+                    user.setText(dataList.get(0) + "님");
+                    bus.setText("버스 :  " + dataList.get(1));
+                    seat.setText("좌석 :  " + dataList.get(2) + " 번 좌석");
+                    date.setText("날짜 :  " + dataList.get(3));
+                }
+                else {
+                    Toast.makeText(ReservationChecker.this, "내역이 없습니다.", Toast.LENGTH_SHORT).show();
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            }
         }
     }
+}

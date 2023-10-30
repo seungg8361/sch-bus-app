@@ -19,6 +19,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class SeatActivity extends Activity{
+
     private Button seat1,seat2,seat3,seat4,seat5,seat6,seat7,seat8,seat9,seat10
             ,seat11,seat12,seat13,seat14,seat15,seat16,seat17,seat18,seat19,seat20
             ,seat21,seat22,seat23,seat24,seat25,seat26,seat27,seat28,seat29,seat30

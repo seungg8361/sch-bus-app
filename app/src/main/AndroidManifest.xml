@@ -29,6 +29,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".MainActivity2"
+            android:exported="false" />
+        <activity
             android:name=".ansanpicture"
             android:exported="false" />
         <activity
@@ -54,14 +57,14 @@
             android:exported="false" />
         <activity
             android:name=".date"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity
             android:name=".bus2"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
