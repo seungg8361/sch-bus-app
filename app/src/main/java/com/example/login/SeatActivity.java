@@ -17,9 +17,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 public class SeatActivity extends Activity{
 
+    private List<String> reservedSeats;
     private Button seat1,seat2,seat3,seat4,seat5,seat6,seat7,seat8,seat9,seat10
             ,seat11,seat12,seat13,seat14,seat15,seat16,seat17,seat18,seat19,seat20
             ,seat21,seat22,seat23,seat24,seat25,seat26,seat27,seat28,seat29,seat30
@@ -440,15 +442,7 @@ public class SeatActivity extends Activity{
         }
         @Override
         protected void onPostExecute(String result) {
-            if (result.equals("이미 예약된 좌석입니다.")) {
                 Toast.makeText(SeatActivity.this, result, Toast.LENGTH_SHORT).show();
-                seat1.setEnabled(false);
-            }
-            else {
-                Intent intent = new Intent(SeatActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
             }
         }
-    }
 }

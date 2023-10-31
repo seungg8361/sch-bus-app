@@ -151,7 +151,6 @@ public class date extends Activity {
 
         @Override
         protected void onPostExecute(String result) {
-            Toast.makeText(date.this, "날짜가 선택되었습니다.", Toast.LENGTH_SHORT).show();
             super.onPostExecute(result);
         }
     }
