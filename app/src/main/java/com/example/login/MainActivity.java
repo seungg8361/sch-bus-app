@@ -44,7 +44,7 @@ public class MainActivity extends Activity{
         inquiryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ReservationChecker.class);
+                Intent intent = new Intent(MainActivity.this, Reservate.class);
                 b.setUserId(userId);
                 intent.putExtra("user_id",b.getUserId());
                 startActivity(intent);

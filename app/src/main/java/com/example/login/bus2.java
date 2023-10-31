@@ -37,7 +37,7 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(bus2.this, date.class);
-                String SelectGyodae11 = "교대";
+                String SelectGyodae11 = "교대->순천향대 (6:30)";
                 d.setBus(SelectGyodae11);
                 d.setUserId(userId);
                 intent.putExtra("user_id", d.getUserId());
@@ -51,7 +51,7 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(bus2.this, date.class);
-                String SelectGyodae22 = "교대2";
+                String SelectGyodae22 = "교대->순천향대 (8:00)";
                 d.setBus(SelectGyodae22);
                 d.setUserId(userId);
                 intent.putExtra("user_id", d.getUserId());
@@ -65,7 +65,7 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(bus2.this, date.class);
-                String SelectAnsan1 = "안산";
+                String SelectAnsan1 = "안산->순천향대 (7:00)";
                 d.setBus(SelectAnsan1);
                 d.setUserId(userId);
                 intent.putExtra("user_id", d.getUserId());
@@ -79,7 +79,7 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(bus2.this, date.class);
-                String SelectIncheon1 = "인천";
+                String SelectIncheon1 = "인천->순천향대 (6:30)";
                 d.setBus(SelectIncheon1);
                 d.setUserId(userId);
                 intent.putExtra("user_id", d.getUserId());
@@ -93,7 +93,7 @@ public class bus2 extends Activity{      // 등교 버스 선택하기
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(bus2.this, date.class);
-                String SelectSongnae1 = "송내";
+                String SelectSongnae1 = "송내->순천향대 (6:40)";
                 d.setBus(SelectSongnae1);
                 d.setUserId(userId);
                 intent.putExtra("user_id", d.getUserId());
