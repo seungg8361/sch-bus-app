@@ -5,53 +5,112 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
-public class SeatActivity extends Activity{
+public class SeatActivity extends Activity {
 
-    private List<String> reservedSeats;
-    private Button seat1,seat2,seat3,seat4,seat5,seat6,seat7,seat8,seat9,seat10
-            ,seat11,seat12,seat13,seat14,seat15,seat16,seat17,seat18,seat19,seat20
-            ,seat21,seat22,seat23,seat24,seat25,seat26,seat27,seat28,seat29,seat30
-            ,seat31,seat32,seat33,seat34,seat35,seat36,seat37,seat38,seat39,seat40
-            ,seat41,seat42,seat43,seat44,seat45,backButton;
+    private Button seat1, seat2, seat3, seat4, seat5, seat6, seat7, seat8, seat9, seat10, seat11, seat12, seat13, seat14, seat15, seat16,
+            seat17, seat18, seat19, seat20, seat21, seat22, seat23, seat24, seat25, seat26, seat27, seat28, seat29, seat30, seat31, seat32,
+            seat33, seat34, seat35, seat36, seat37, seat38, seat39, seat40, seat41, seat42, seat43, seat44, seat45, backButton;
+    InfoDto q = new InfoDto();
+    String selectUser, selectBus, selectDate, Selectseat;
+
+    private class GetReservedSeatsTask extends AsyncTask<Void, Void, List<String>> {
+        @Override
+        protected List<String> doInBackground(Void... voids) {
+            List<String> reservedSeats = new ArrayList<>();
+            try {
+                URL url = new URL("http://10.114.10.18:8080/selected_seat");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json");
+
+                if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    InputStream is = conn.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+                    String line;
+                    StringBuilder builder = new StringBuilder();
+
+                    while ((line = reader.readLine()) != null) {
+                        builder.append(line);
+                    }
+                    String response = builder.toString();
+
+                    JSONArray jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        reservedSeats.add(jsonArray.getString(i));
+                    }
+                }
+                conn.disconnect();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return reservedSeats;
+        }
+        @Override
+        protected void onPostExecute(List<String> reservedSeats) {
+            // 예약된 좌석에 대한 버튼의 이미지를 변경합니다.
+            for (String seatInfo : reservedSeats) {
+                try {
+                    JSONObject seatInfoJson = new JSONObject(seatInfo);
+                    String seatId = seatInfoJson.getString("seat");
+                    int resId = getResources().getIdentifier(seatId, "id", getPackageName());
+
+                    Button seatButton = findViewById(resId);
+                    if (seatButton == null) {
+                        Log.e("SeatSelection", "No button found with ID: " + seatId);
+                        continue;
+                    }
+
+                    seatButton.setBackgroundResource(R.drawable.reservation_gaeun_seat);
+                } catch (JSONException e) {
+                    // JSON 파싱 오류 또는 정수로 변환할 수 없는 문자열이 들어온 경우의 처리
+                    Log.e("SeatSelection", "Invalid seat info: " + seatInfo, e);
+                }
+            }
+        }
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seat);
 
+        new GetReservedSeatsTask().execute();
+
         Intent intent = getIntent();
-        String selectUser = intent.getStringExtra("user_id");
-        String selectBus = intent.getStringExtra("bus");
-        String selectDate = intent.getStringExtra("date");
+        selectUser = intent.getStringExtra("user_id");
+        selectBus = intent.getStringExtra("bus");
+        selectDate = intent.getStringExtra("date");
+
         backButton = findViewById(R.id.backButton);
-        seat1 = findViewById(R.id.seat1);seat2 = findViewById(R.id.seat2);seat3 = findViewById(R.id.seat3);
-        seat4 = findViewById(R.id.seat4);seat5 = findViewById(R.id.seat5);seat6 = findViewById(R.id.seat6);
-        seat7 = findViewById(R.id.seat7);seat8 = findViewById(R.id.seat8);seat9 = findViewById(R.id.seat9);
-        seat10 = findViewById(R.id.seat10);seat11 = findViewById(R.id.seat11);seat12 = findViewById(R.id.seat12);
-        seat13 = findViewById(R.id.seat13);seat14 = findViewById(R.id.seat14);seat15 = findViewById(R.id.seat15);
-        seat16 = findViewById(R.id.seat16);seat17 = findViewById(R.id.seat17);seat18 = findViewById(R.id.seat18);
-        seat19 = findViewById(R.id.seat19);seat20 = findViewById(R.id.seat20);seat21 = findViewById(R.id.seat21);
-        seat22 = findViewById(R.id.seat22);seat23 = findViewById(R.id.seat23);seat24 = findViewById(R.id.seat24);
-        seat25 = findViewById(R.id.seat25);seat26 = findViewById(R.id.seat26);seat27 = findViewById(R.id.seat27);
-        seat28 = findViewById(R.id.seat28);seat29 = findViewById(R.id.seat29);seat30 = findViewById(R.id.seat30);
-        seat31 = findViewById(R.id.seat31);seat32 = findViewById(R.id.seat32);seat33 = findViewById(R.id.seat33);
-        seat34 = findViewById(R.id.seat34);seat35 = findViewById(R.id.seat35);seat36 = findViewById(R.id.seat36);
-        seat37 = findViewById(R.id.seat37);seat38 = findViewById(R.id.seat38);seat39 = findViewById(R.id.seat39);
-        seat40 = findViewById(R.id.seat40);seat41 = findViewById(R.id.seat41);seat42 = findViewById(R.id.seat42);
-        seat43 = findViewById(R.id.seat43);seat44 = findViewById(R.id.seat44);seat45 = findViewById(R.id.seat45);
+        seat1 = findViewById(R.id.seat1);seat2 = findViewById(R.id.seat2);seat3 = findViewById(R.id.seat3);seat4 = findViewById(R.id.seat4);seat5 = findViewById(R.id.seat5);
+        seat6 = findViewById(R.id.seat6);seat7 = findViewById(R.id.seat7);seat8 = findViewById(R.id.seat8);seat9 = findViewById(R.id.seat9);seat10 = findViewById(R.id.seat10);
+        seat11 = findViewById(R.id.seat11);seat12 = findViewById(R.id.seat12);seat13 = findViewById(R.id.seat13);seat14 = findViewById(R.id.seat14);seat15 = findViewById(R.id.seat15);
+        seat16 = findViewById(R.id.seat16);seat17 = findViewById(R.id.seat17);seat18 = findViewById(R.id.seat18);seat19 = findViewById(R.id.seat19);seat20 = findViewById(R.id.seat20);
+        seat21 = findViewById(R.id.seat21);seat22 = findViewById(R.id.seat22);seat23 = findViewById(R.id.seat23);seat24 = findViewById(R.id.seat24);seat25 = findViewById(R.id.seat25);
+        seat26 = findViewById(R.id.seat26);seat27 = findViewById(R.id.seat27);seat28 = findViewById(R.id.seat28);seat29 = findViewById(R.id.seat29);seat30 = findViewById(R.id.seat30);
+        seat31 = findViewById(R.id.seat31);seat32 = findViewById(R.id.seat32);seat33 = findViewById(R.id.seat33);seat34 = findViewById(R.id.seat34);seat35 = findViewById(R.id.seat35);
+        seat36 = findViewById(R.id.seat36);seat37 = findViewById(R.id.seat37);seat38 = findViewById(R.id.seat38);seat39 = findViewById(R.id.seat39);seat40 = findViewById(R.id.seat40);
+        seat41 = findViewById(R.id.seat41);seat42 = findViewById(R.id.seat42);seat43 = findViewById(R.id.seat43);seat44 = findViewById(R.id.seat44);seat45 = findViewById(R.id.seat45);
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,320 +121,320 @@ public class SeatActivity extends Activity{
         seat1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "1";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "1";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "2";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "2";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "3";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "3";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "4";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "4";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "5";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "5";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "6";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "6";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "7";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "7";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "8";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "8";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "9";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "9";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "10";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "10";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "11";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "11";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "12";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "12";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat13.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "13";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "13";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat14.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "14";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "14";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat15.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "15";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "15";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat16.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "16";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "16";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat17.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "17";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "17";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat18.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "18";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "18";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat19.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "19";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "19";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat20.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "20";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "20";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat21.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "21";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "21";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat22.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "22";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "22";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat23.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "23";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "23";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat24.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "24";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "24";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat25.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "25";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "25";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat26.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "26";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "26";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat27.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "27";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "27";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat28.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "28";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "28";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat29.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "29";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "29";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat30.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "30";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "30";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat31.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "31";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "31";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat32.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "32";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "32";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat33.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "33";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "33";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat34.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "34";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "34";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat35.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "35";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "35";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat36.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "36";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "36";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat37.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "37";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "37";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat38.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "38";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "38";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat39.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "39";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "39";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat40.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "40";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "40";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat41.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "41";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "41";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat42.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "42";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "42";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat43.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "43";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "43";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat44.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "44";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "44";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
         seat45.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Selectseat = "45";
-                new SeatSelectionTask().execute(selectBus,selectDate,Selectseat,selectUser);
+                Selectseat = "45";
+                new SeatSelectionTask().execute(selectBus, selectDate, Selectseat, selectUser);
             }
         });
     }
-    private class SeatSelectionTask extends AsyncTask<String, Void, String >{
+    private class SeatSelectionTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
             String urlString = "http://10.114.10.18:8080/select_seat";
@@ -421,7 +480,7 @@ public class SeatActivity extends Activity{
                     Intent intent1 = new Intent(Intent.ACTION_VIEW, Uri.parse(response.toString()));
                     startActivity(intent1);           // kakaopay 결제창 화면 넘어가기.
 
-                }else {
+                } else {
                     // 서버로부터 응답 데이터 읽기
                     InputStream errorStream = conn.getErrorStream();
                     InputStreamReader errorStreamReader = new InputStreamReader(errorStream);
@@ -442,7 +501,14 @@ public class SeatActivity extends Activity{
         }
         @Override
         protected void onPostExecute(String result) {
+            if (result.equals("이미 예약된 좌석입니다.")) {
                 Toast.makeText(SeatActivity.this, result, Toast.LENGTH_SHORT).show();
+                Button reservedButton = findViewById(getResources().getIdentifier("seat" + Selectseat, "id", getPackageName()));
+                if (reservedButton != null) {
+                    reservedButton.setBackgroundResource(R.drawable.reservation_gaeun_seat);
+                    reservedButton.setEnabled(false); // 버튼을 비활성화하여 예약 불가능하게 함
+                }
             }
         }
+    }
 }

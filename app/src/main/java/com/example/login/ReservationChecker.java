@@ -13,10 +13,12 @@ public class ReservationChecker extends Activity {
     private Button mainButton;
     private TextView user, bus, seat, date;
     String userId, busId, seatId, dateId;
+    private Button backButton;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reservation);
+
 
         user = findViewById(R.id.userId);
         bus = findViewById(R.id.busnumber);
@@ -34,6 +36,15 @@ public class ReservationChecker extends Activity {
         dto.setDate(dateId);
 
         mainButton = findViewById(R.id.mainButton);
+        backButton = findViewById(R.id.backButton);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ReservationChecker.this, Reservate.class);
+                startActivity(intent);
+            }
+        });
         mainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

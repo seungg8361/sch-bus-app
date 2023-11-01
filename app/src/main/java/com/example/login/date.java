@@ -58,7 +58,6 @@ public class date extends Activity {
                     e.setDate(dateList.get(position));
                     e.setUserId(userId);
                     intent.putExtra("user_id",e.getUserId());
-                    Log.i("user_id",String.valueOf(userId));
                     intent.putExtra("date", e.getDate());
                     intent.putExtra("bus" , e.getBus());
                     startActivity(intent);
