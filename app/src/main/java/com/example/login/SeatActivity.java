@@ -5,24 +5,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SeatActivity extends Activity {
 
@@ -32,68 +26,10 @@ public class SeatActivity extends Activity {
     InfoDto q = new InfoDto();
     String selectUser, selectBus, selectDate, Selectseat;
 
-    private class GetReservedSeatsTask extends AsyncTask<Void, Void, List<String>> {
-        @Override
-        protected List<String> doInBackground(Void... voids) {
-            List<String> reservedSeats = new ArrayList<>();
-            try {
-                URL url = new URL("http://10.114.10.18:8080/selected_seat");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/json");
-
-                if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    InputStream is = conn.getInputStream();
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-                    String line;
-                    StringBuilder builder = new StringBuilder();
-
-                    while ((line = reader.readLine()) != null) {
-                        builder.append(line);
-                    }
-                    String response = builder.toString();
-
-                    JSONArray jsonArray = new JSONArray(response);
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        reservedSeats.add(jsonArray.getString(i));
-                    }
-                }
-                conn.disconnect();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return reservedSeats;
-        }
-        @Override
-        protected void onPostExecute(List<String> reservedSeats) {
-            // 예약된 좌석에 대한 버튼의 이미지를 변경합니다.
-            for (String seatInfo : reservedSeats) {
-                try {
-                    JSONObject seatInfoJson = new JSONObject(seatInfo);
-                    String seatId = seatInfoJson.getString("seat");
-                    int resId = getResources().getIdentifier(seatId, "id", getPackageName());
-
-                    Button seatButton = findViewById(resId);
-                    if (seatButton == null) {
-                        Log.e("SeatSelection", "No button found with ID: " + seatId);
-                        continue;
-                    }
-
-                    seatButton.setBackgroundResource(R.drawable.reservation_gaeun_seat);
-                } catch (JSONException e) {
-                    // JSON 파싱 오류 또는 정수로 변환할 수 없는 문자열이 들어온 경우의 처리
-                    Log.e("SeatSelection", "Invalid seat info: " + seatInfo, e);
-                }
-            }
-        }
-
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seat);
-
-        new GetReservedSeatsTask().execute();
 
         Intent intent = getIntent();
         selectUser = intent.getStringExtra("user_id");
