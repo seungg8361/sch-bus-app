@@ -10,13 +10,6 @@
         android:orientation="vertical"
         android:background="@color/colorPrimary">
 
-        <Button
-            android:id="@+id/backButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:text= "◀"
-            android:background="@color/colorPrimary"/>
-
         <ImageView
             android:layout_width="225dp"
             android:layout_height="110dp"
