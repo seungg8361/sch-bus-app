@@ -9,3 +9,8 @@
 
 ### Project Architecture
 <img src = "https://github.com/seungg8361/sch-bus-app/assets/140582940/db0b1e7e-96e2-45a9-a716-2e580f2f5354.jpg" width = 700>
+
+### Stack & Tools
+* java-version : 17
+* Android Studio
+* KakaoPay Open API
